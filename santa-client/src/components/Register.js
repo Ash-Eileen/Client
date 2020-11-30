@@ -1,11 +1,14 @@
+import {registerUser} from "../services/authServices" 
+import {useGlobalState} from '../config/store'  
 import React, {useState} from 'react'
-import {useGlobalState} from '../config/store' 
-import {loginUser} from "../services/authServices"
 
-const Login = ({history}) =>{  
+
+
+const SignUp = ({history}) =>{  
     
     const initialFormState = {
-        username: "",
+        username: "", 
+        email: "",
         password: ""
     }
 
@@ -21,34 +24,39 @@ const Login = ({history}) =>{
         })
     }
 
-    const loginSubmit = (event) =>{ 
-      event.preventDefault()    
-      
-      console.log(userDetails)
-      
-      loginUser(userDetails) 
-      .then(() =>{ 
-          dispatch({ 
-              type: "setLoggedInUser", 
-              data: userDetails.username
-          }) 
-          history.push("/")
-      }) 
-      .catch((error) => {
-        console.log(`Error : ${error}`)
-    })	
-    }
+    const signUpSubmit = (event) =>{ 
+        event.preventDefault()    
+        
+        console.log(userDetails)
+        
+        registerUser(userDetails) 
+        .then(()=>{ 
+            dispatch({
+                type: "setLoggedInUser",
+                data: userDetails.username
+            })
+            history.push("/")
+        }) 
+        .catch((err) => { 
+            console.log(`Error : ${err}`) 
+        })
+      }
 
-    return( 
+    return(  
         <div> 
-            its me login  
-     
+            <h1>Sign Up</h1> 
 
-            <form onSubmit={loginSubmit}>
+            <form onSubmit={signUpSubmit}>
             <div>
                 <label>Username</label>
                 <input required type="text" name="username" placeholder="Enter a username" onChange={detailsChange}></input>
+            </div> 
+
+            <div>
+                <label>Email</label>
+                <input required type="Email" name="email" placeholder="Enter your Email" onChange={detailsChange}></input>
             </div>
+
             <div>
                 <label>Password</label>
                 <input required type="password" name="password" placeholder="Enter a password" onChange={detailsChange}></input>
@@ -62,4 +70,4 @@ const Login = ({history}) =>{
 
 
 
-export default Login
+export default SignUp
