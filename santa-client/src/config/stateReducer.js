@@ -1,3 +1,5 @@
+
+
 export default function (state, action) {
     switch(action.type) {  
         case "setLoggedInUser": {
@@ -5,16 +7,14 @@ export default function (state, action) {
                 ...state,
                 loggedInUser: action.data
             }
-        }
-        
-        case "test": { 
+        }  
+
+        case "setGiftLists": { 
             return { 
                 ...state, 
-                test: action.data
+                giftLists: action.data
             }
-        } 
-        
-
+        }
         default: 
             return state
     }
