@@ -1,22 +1,20 @@
 import "../styles/styles.scss" 
-// import {useGlobalState} from '../config/store'  
-import stateReducer from '../config/stateReducer' 
-import React, {useReducer} from 'react'  
+import {useGlobalState} from '../config/store'   
+import React, {useState} from 'react' 
+
  
 
 const List = (props) =>{   
 
-  const initialState = {
-    giftLists: {}
-  }
+    const {store, dispatch} = useGlobalState() 
+    const {giftLists} = store  
 
-  const [store, dispatch] = useReducer(stateReducer,initialState)
-  const {giftLists} = store  
+    const [formName,setFormName] = useState("name") 
 
   const deleteGift = (event) =>{ 
     event.preventDefault()  
-    // console.log(event.target.getAttribute("index"))  
-    giftLists[document.getElementById("name").value].splice(event.target.getAttribute("index"),1)
+    
+    giftLists[formName].splice(event.target.getAttribute("index"),1)
      
      dispatch({ 
                 type: "setGiftLists", 
@@ -25,9 +23,9 @@ const List = (props) =>{
   }
 
     const showItems = () => {  
-        if (document.getElementById("name")) { 
-            return giftLists[document.getElementById("name").value].map((v,i)=>{ 
-                return <div> <li key={i}>{v}</li> <button index={i} onClick={deleteGift}>delete</button></div>
+        if (formName != "name") { 
+            return giftLists[document.getElementById(formName).value].map((v,i)=>{ 
+                return <div key={i}> <li>{v}</li> <button index={i} onClick={deleteGift}>delete</button></div>
             })
         }
     }
@@ -41,23 +39,31 @@ const List = (props) =>{
 
         if (giftLists[name]) {  
             giftLists[name].push(event.target.addItem.value)
+            // let giftListCopy = {...giftLists, [name].push(event.target.addItem.value)}
 
               dispatch({ 
                 type: "setGiftLists", 
                 data: giftLists
-            })  
+            })   
             
         } else {   
-            giftLists[name] = [event.target.addItem.value] 
+            // giftLists[name] = [event.target.addItem.value]  
+            // giftLists[name]: [event.target.addItem.value
+            let giftListCopy = {...giftLists, [name]: [event.target.addItem.value]}  
+
+
                dispatch({
                 type: "setGiftLists", 
-                data: giftLists
-            })  
-        }      
+                data: giftListCopy
+            })   
+        }    
+ 
 
-        event.target.setAttribute("id", `${name}`)  
-        console.log(event.target)
-
+         
+       
+        document.getElementById(formName).setAttribute("id", `${name}`)   
+         setFormName(name) 
+         console.log(formName)
     }
 
     
@@ -70,7 +76,7 @@ const List = (props) =>{
         <form onSubmit={addItem}>
         Name:<input type="text" id="name" name="name" /> 
         <br/>  
-
+         
         {showItems()}
         List:   
         

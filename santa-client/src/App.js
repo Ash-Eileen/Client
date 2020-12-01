@@ -14,8 +14,8 @@ import Nav from "./components/Nav"
 
 function App() {   
 
-  const initialState = {
-    test: "test"
+  const initialState = { 
+    giftLists: {}
   }
 
   const [store, dispatch] = useReducer(stateReducer,initialState)
