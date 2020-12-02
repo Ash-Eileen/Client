@@ -1,5 +1,4 @@
 import List from "./List"    
-import React, {useState} from 'react' 
 import {useGlobalState} from '../config/store' 
 
 
@@ -10,18 +9,15 @@ import {useGlobalState} from '../config/store'
 
 const GiftList = (props) =>{     
 
-    const {store} = useGlobalState() 
-    const {giftLists} = store  
-    
-    const [listsCount,setListsCount] = useState([0]) 
+    const {store,dispatch} = useGlobalState() 
+    const {giftLists} = store   
 
 
-     
     const addList = (event) =>{  
-        event.preventDefault()    
-        setListsCount([...listsCount, 1] ) 
-        console.log(listsCount) 
-    } 
+        event.preventDefault() 
+        console.log("hi")   
+        return <List/>
+    }  
 
 
 
@@ -31,8 +27,12 @@ const GiftList = (props) =>{
 
             <button onClick={addList}>add person</button> 
             
-            <div>   
-                {listsCount.map((thing) => { return <List/>})}
+            <div>    
+                <List/>
+                {/* {Object.keys(giftLists).map((v, i) => {  
+                    // console.log("mapping lists " + v)  
+                    return <List index={i + "list"}/>  
+                    })} */}
                 
             </div>  
             
