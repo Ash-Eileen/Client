@@ -9,7 +9,7 @@ export default function (state, action) {
             }
         }  
 
-        case "setGiftLists": { 
+        case "setGiftLists": {  
             return { 
                 ...state, 
                 giftLists: action.data

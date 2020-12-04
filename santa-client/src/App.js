@@ -10,19 +10,21 @@ import LetterToSanta from "./components/LetterToSanta"
 import GiftList from "./components/GiftList" 
 import AdventCalender from "./components/AdventCalender" 
 import Nav from "./components/Nav"
+import CandyCane from './components/CandyCane'
 
 
 function App() {   
 
-  const initialState = {
-    test: "test"
+  const initialState = { 
+    giftLists: {}
   }
 
   const [store, dispatch] = useReducer(stateReducer,initialState)
 
 
-  return (
-    <div> 
+  return ( 
+    <div>  
+        {/* <CandyCane/> */}
       <StateContext.Provider value={{store,dispatch}}>
         <BrowserRouter>
           <h1>Santa</h1> 

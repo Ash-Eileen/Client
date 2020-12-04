@@ -1,76 +1,66 @@
-import "../styles/styles.scss" 
-// import {useGlobalState} from '../config/store'  
-import stateReducer from '../config/stateReducer' 
-import React, {useReducer} from 'react'  
- 
+import "../styles/styles.scss"
+import {useGlobalState} from '../config/store'    
 
 const List = (props) =>{   
 
-  const initialState = {
-    giftLists: {}
-  }
+    const {store, dispatch} = useGlobalState() 
+    const {giftLists} = store  
+    const {identifer} = props  
 
-  const [store, dispatch] = useReducer(stateReducer,initialState)
-  const {giftLists} = store  
 
-  const deleteGift = (event) =>{ 
+
+//   deletes a selected gift and updates global state
+const deleteGift = (event) =>{ 
     event.preventDefault()  
-    // console.log(event.target.getAttribute("index"))  
-    giftLists[document.getElementById("name").value].splice(event.target.getAttribute("index"),1)
+    
+    giftLists[identifer].splice(event.target.getAttribute("index"),1)
      
      dispatch({ 
                 type: "setGiftLists", 
                 data: giftLists
             })  
-  }
+  }   
 
-    const showItems = () => {  
-        if (document.getElementById("name")) { 
-            return giftLists[document.getElementById("name").value].map((v,i)=>{ 
-                return <div> <li key={i}>{v}</li> <button index={i} onClick={deleteGift}>delete</button></div>
+
+//   displays gifts in list from global state
+    const showItems = () => {   
+
+        if ( (giftLists[identifer].length > 0 ) ) { 
+            return giftLists[identifer].map((v,i)=>{ 
+                return <div key={i}> <li>{v}</li> <button index={i} onClick={deleteGift}>delete</button></div>
             })
         }
-    }
+    } 
 
-    
+
+// adds a gift to the global state
     const addItem = (event) => {    
-        event.preventDefault()  
+        event.preventDefault()   
 
-        let name = event.target.name.value 
-        
+        if (giftLists[identifer]) {  
 
-        if (giftLists[name]) {  
-            giftLists[name].push(event.target.addItem.value)
+            giftLists[identifer].push(event.target.addItem.value)
 
               dispatch({ 
                 type: "setGiftLists", 
                 data: giftLists
-            })  
+            })    
             
-        } else {   
-            giftLists[name] = [event.target.addItem.value] 
-               dispatch({
-                type: "setGiftLists", 
-                data: giftLists
-            })  
-        }      
+        } 
 
-        event.target.setAttribute("id", `${name}`)  
-        console.log(event.target)
+    } 
 
-    }
+
 
     
     return(  
-        <div class="styledBox">    
-
-
-        {/* onsubmit of form give it an id with name */}
+        <div id={identifer} class="styledBox">    
         
         <form onSubmit={addItem}>
-        Name:<input type="text" id="name" name="name" /> 
-        <br/>  
-
+        Name:   
+        <input type="text" id="name" name="name" required />
+        <br/>   
+         
         {showItems()}
         List:   
         
