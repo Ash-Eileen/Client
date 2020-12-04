@@ -1,5 +1,6 @@
 import List from "./List"    
-import {useGlobalState} from '../config/store' 
+import {useGlobalState} from '../config/store'  
+import { v4 as uuidv4 } from 'uuid';
 
 
 
@@ -9,8 +10,9 @@ import {useGlobalState} from '../config/store'
 const GiftList = (props) =>{     
 
     const {store,dispatch} = useGlobalState() 
-    const {giftLists} = store  
-    
+    const {giftLists} = store   
+
+    let randomId = uuidv4() 
 
     const addList = (event) =>{  
         
@@ -19,17 +21,8 @@ const GiftList = (props) =>{
         
         
         event.preventDefault()   
-        
-
-        // let person = {} 
-        // person[ranNum] = []   
-        
-        // let giftListsCopy = {...giftLists, person}  
-
-        giftLists[Object.keys(giftLists).length] = []
-        // console.log(giftListsCopy)
-
-        // console.log(Object.keys(giftLists))
+         
+        giftLists[randomId] = [] 
 
         dispatch ({ 
             type:"setGiftLists", 
@@ -52,11 +45,6 @@ const GiftList = (props) =>{
         console.log(giftLists)
     }
 
-// delete Object.keys(giftLists)[1] 
-
-// list : remove a specific index position from the list array
-// giftList : remove all the fields in the giftList state that corresponds to a particular person
-
     return(  
         <div> 
             <h1>GiftList</h1> 
@@ -64,12 +52,9 @@ const GiftList = (props) =>{
             <button onClick={addList}>Add Gift List</button> 
             
             <div>    
-                {/* <List /> 
-                <button onClick={deleteList}>Delete List</button>  */}
                 
                 {Object.keys(giftLists).length > 0 && Object.keys(giftLists).map((v, i) => {  
-                    // return <div><List identifer={v}/>,<button id={v} onClick={deleteList}>Delete List</button> </div> 
-                    return <div><List identifer={v}/>,<button id={v} onClick={deleteList}>Delete List</button> </div>
+                    return <div><List identifer={v}/>,<button id={v} onClick={deleteList}>Delete List</button> </div>         
                     })}
                 
             </div>  
