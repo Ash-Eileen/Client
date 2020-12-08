@@ -40,7 +40,7 @@ const Nav = () =>{
         </div> 
 
         <div>
-        {loggedInUser ? <a onClick={logout}>Logout</a> : <Link to="/login">Login</Link> }  
+        {loggedInUser ? <a class="log" onClick={logout}>Logout</a> : <Link className="log" to="/login">Login</Link> }  
         </div> 
         
 

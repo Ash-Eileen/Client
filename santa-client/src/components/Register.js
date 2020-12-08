@@ -44,24 +44,24 @@ const SignUp = ({history}) =>{
 
     return(  
         <div> 
-            <h1>Sign Up</h1> 
+            <h1 class="signupHeading">Sign Up</h1> 
 
-            <form onSubmit={signUpSubmit}>
+            <form class="signup" onSubmit={signUpSubmit}>
             <div>
                 <label>Username</label>
-                <input required type="text" name="username" placeholder="Enter a username" onChange={detailsChange}></input>
+                <input class="username" required type="text" name="username" placeholder="Enter a username" onChange={detailsChange}></input>
             </div> 
 
             <div>
                 <label>Email</label>
-                <input required type="Email" name="email" placeholder="Enter your Email" onChange={detailsChange}></input>
+                <input class="email" required type="Email" name="email" placeholder="Enter your Email" onChange={detailsChange}></input>
             </div>
 
             <div>
                 <label>Password</label>
-                <input required type="password" name="password" placeholder="Enter a password" onChange={detailsChange}></input>
+                <input class="password" required type="password" name="password" placeholder="Enter a password" onChange={detailsChange}></input>
             </div>
-            <input type="submit" value="Login"></input>
+            <input type="submit" value="Sign Up"></input>
             
         </form>
         </div>

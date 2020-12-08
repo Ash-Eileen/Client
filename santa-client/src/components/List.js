@@ -27,7 +27,7 @@ const deleteGift = (event) =>{
 
         if ( (giftLists[identifer].length > 0 ) ) { 
             return giftLists[identifer].map((v,i)=>{ 
-                return <div key={i}> <li>{v}</li> <button index={i} onClick={deleteGift}>delete</button></div>
+                return <div key={i} class="gift"> <li>{v}</li> <button index={i} class="deleteGift" onClick={deleteGift}>delete</button></div>
             })
         }
     } 
@@ -58,14 +58,14 @@ const deleteGift = (event) =>{
         
         <form onSubmit={addItem}>
         Name:   
-        <input type="text" id="name" name="name" required />
+        <input class="nameInput" type="text" id="name" name="name" required />
         <br/>   
          
         {showItems()}
         List:   
         
-        <input type="text" name="addItem"></input>  
-        <input type="submit" name="makeList"  value="Save List"/>
+        <input class="giftInput" type="text" name="addItem"></input>  
+        <input class="giftSubmit" type="submit" name="makeList"  value="Save List"/>
         </form>
 
         </div> 

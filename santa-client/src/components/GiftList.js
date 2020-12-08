@@ -47,14 +47,14 @@ const GiftList = (props) =>{
 
     return(  
         <div> 
-            <h1>GiftList</h1> 
+            <h1 class="giftListHeader">Gift List</h1> 
 
-            <button onClick={addList}>Add Gift List</button> 
+            <button class="addPerson" onClick={addList}>Add Gift List</button> 
             
             <div>    
                 
                 {Object.keys(giftLists).length > 0 && Object.keys(giftLists).map((v, i) => {  
-                    return <div><List identifer={v}/>,<button id={v} onClick={deleteList}>Delete List</button> </div>         
+                    return <div><List identifer={v}/>,<button id={v} class="deleteList" onClick={deleteList}>Delete List</button> </div>         
                     })}
                 
             </div>  
