@@ -44,7 +44,7 @@ const SignUp = ({history}) =>{
 
     return(  
         <div> 
-            <h1>Sign Up</h1> 
+            <h1 class="signupHeading">Sign Up</h1> 
 
             <form class="signup" onSubmit={signUpSubmit}>
             <div>
