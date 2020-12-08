@@ -24,7 +24,6 @@ function App() {
 
   return ( 
     <div>  
-        {/* <CandyCane/> */}
       <StateContext.Provider value={{store,dispatch}}>
         <BrowserRouter>
           <h1>Santa</h1> 
