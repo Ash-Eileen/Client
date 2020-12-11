@@ -40,7 +40,7 @@ function App() {
               <div class="leftCane"></div> 
               </div>  
 
-              <div class="col-10 p-0">  
+              <div class="col-10 p-0 d-flex flex-column justify-content-between ">  
               <Nav/>   
 
               <div class="d-flex flex-column align-items-center text-center">
@@ -52,7 +52,7 @@ function App() {
               <Route exact path="/advent-calender" component={AdventCalender} /> 
               <Route exact path="/" component={Home} />  
               </div> 
-<SocialsBar/>
+              <SocialsBar/>
               </div>   
              
               

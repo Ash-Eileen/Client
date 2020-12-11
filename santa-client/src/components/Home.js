@@ -24,7 +24,7 @@ const Home = () =>{
     <Link to="/" className="activity">
     <div class="col"> 
     <div class="d-flex flex-column"> 
-    <h5>Secret Santa</h5> 
+    <h5 class="center-fix">Secret Santa</h5> 
     <img class="present" src={window.location.origin + '/images/present4.jpg'} alt="presemt" /> 
     </div> 
     </div>
@@ -36,7 +36,7 @@ const Home = () =>{
     <Link to="/gift-list" className="activity">
     <div class="col"> 
     <div class="d-flex flex-column"> 
-    <h5>Gift List</h5> 
+    <h5 class="center-fix">Gift List</h5> 
     <img class="present" src={window.location.origin + '/images/present4.jpg'} alt="presemt" /> 
     </div> 
     </div>   
@@ -63,7 +63,7 @@ const Home = () =>{
     <Link to="/advent-calender" className="activity">
     <div class="col"> 
     <div class="d-flex flex-column"> 
-    <h5>Advent Calender</h5> 
+    <h5 class="center-fix">Advent Calender</h5> 
     <img class="present" src={window.location.origin + '/images/present4.jpg'} alt="presemt" /> 
     </div> 
     </div>
@@ -72,7 +72,7 @@ const Home = () =>{
     <Link to="/Letter-to-Santa" className="activity">
     <div class="col"> 
     <div class="d-flex flex-column"> 
-    <h5>Letter To Santa</h5> 
+    <h5 class="center-fix">Letter To Santa</h5> 
     <img class="present" src={window.location.origin + '/images/present4.jpg'} alt="presemt" /> 
     </div> 
     </div> 
