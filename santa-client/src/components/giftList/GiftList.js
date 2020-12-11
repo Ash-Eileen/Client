@@ -1,5 +1,5 @@
 import List from "./List"    
-import {useGlobalState} from '../config/store'  
+import {useGlobalState} from '../../config/store'  
 import { v4 as uuidv4 } from 'uuid';
 
 

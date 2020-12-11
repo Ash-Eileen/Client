@@ -1,5 +1,5 @@
-import "../styles/styles.scss"
-import {useGlobalState} from '../config/store'    
+import "../../styles/styles.scss"
+import {useGlobalState} from '../../config/store'    
 
 const List = (props) =>{   
 
