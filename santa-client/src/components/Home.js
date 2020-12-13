@@ -25,7 +25,7 @@ const Home = () =>{
     <div class="col"> 
     <div class="d-flex flex-column"> 
     <h5 class="center-fix">Secret Santa</h5> 
-    <img class="present" src={window.location.origin + '/images/present4.jpg'} alt="presemt" /> 
+    <img class="present" src={window.location.origin + '/images/present4.jpg'} alt="present" /> 
     </div> 
     </div>
     </Link> 
@@ -37,7 +37,7 @@ const Home = () =>{
     <div class="col"> 
     <div class="d-flex flex-column"> 
     <h5 class="center-fix">Gift List</h5> 
-    <img class="present" src={window.location.origin + '/images/present4.jpg'} alt="presemt" /> 
+    <img class="present" src={window.location.origin + '/images/present4.jpg'} alt="present" /> 
     </div> 
     </div>   
     </Link>
@@ -64,7 +64,7 @@ const Home = () =>{
     <div class="col"> 
     <div class="d-flex flex-column"> 
     <h5 class="center-fix">Advent Calender</h5> 
-    <img class="present" src={window.location.origin + '/images/present4.jpg'} alt="presemt" /> 
+    <img class="present" src={window.location.origin + '/images/present4.jpg'} alt="present" /> 
     </div> 
     </div>
     </Link>
@@ -73,7 +73,7 @@ const Home = () =>{
     <div class="col"> 
     <div class="d-flex flex-column"> 
     <h5 class="center-fix">Letter To Santa</h5> 
-    <img class="present" src={window.location.origin + '/images/present4.jpg'} alt="presemt" /> 
+    <img class="present" src={window.location.origin + '/images/present4.jpg'} alt="present" /> 
     </div> 
     </div> 
     </Link>

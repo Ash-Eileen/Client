@@ -3,9 +3,10 @@ import {Link} from 'react-router-dom'
 import {useGlobalState} from '../config/store' 
 import {logoutUser} from "../services/authServices" 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSleigh } from '@fortawesome/free-solid-svg-icons'  
+import { faSleigh,faCandyCane } from '@fortawesome/free-solid-svg-icons'  
 import ChristmasButton from "./ChristmasButton"
-import "../styles/pages/nav.scss"
+import "../styles/pages/nav.scss" 
+
 
 const Nav = () =>{  
  
@@ -27,7 +28,7 @@ const Nav = () =>{
 
 
     return(  
-    <div class="row"> 
+    <div class="row mt-2"> 
 
     <div class="col"> 
 
@@ -62,7 +63,7 @@ const Nav = () =>{
     <div class="col d-flex align-items-center justify-content-center">
        <div class="logDiv">  
 
-        {loggedInUser ? <ChristmasButton className="log" to="/login" text="logout" onClick={logout}/> : <ChristmasButton className="log" to="/login" text="Login"/> }  
+        {loggedInUser ? <ChristmasButton className="log" to="/login" text="logout" icon={faCandyCane} onClick={logout}/> : <ChristmasButton className="log" icon={faCandyCane} to="/login" text="Login"/> }  
 
         </div> 
     </div>

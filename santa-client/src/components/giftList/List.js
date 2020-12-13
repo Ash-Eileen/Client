@@ -1,5 +1,8 @@
 import "../../styles/styles.scss"
 import {useGlobalState} from '../../config/store'    
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGift } from '@fortawesome/free-solid-svg-icons'  
+
 
 const List = (props) =>{   
 
@@ -53,22 +56,30 @@ const deleteGift = (event) =>{
 
 
     
-    return(  
-        <div id={identifer} class="styledBox">    
-        
-        <form onSubmit={addItem}>
+    return(   
+
+        <div id={identifer} class="styledBox d-flex align-items-center justify-content-center flex-column">   
+        <div class="hole"></div>  
+        <form class="d-flex flex-column align-items-center giftForm" onSubmit={addItem}>
         Name:   
         <input class="nameInput" type="text" id="name" name="name" required />
-        <br/>   
          
         {showItems()}
         List:   
         
         <input class="giftInput" type="text" name="addItem"></input>  
         <input class="giftSubmit" type="submit" name="makeList"  value="Save List"/>
-        </form>
+        </form>  
 
-        </div> 
+        <div class="d-flex align-items-center my-2">  
+       
+        <div class="line"></div>
+        <FontAwesomeIcon className="giftCardIcon" icon={faGift} />   
+        <div class="line"></div> 
+        
+        </div>  
+       
+        </div>  
 
     )
 }

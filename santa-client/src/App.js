@@ -31,7 +31,6 @@ function App() {
       <StateContext.Provider value={{store,dispatch}}>
         <BrowserRouter>  
           
-          
           <div class="allPageContainer"> 
 
             <div class="row p-0 m-0 d-flex justify-content-center"> 
