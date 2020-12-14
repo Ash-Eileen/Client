@@ -22,8 +22,7 @@ function App() {
     giftLists: {}
   }
 
-  const [store, dispatch] = useReducer(stateReducer,initialState)
-
+  const [store, dispatch] = useReducer(stateReducer,initialState) 
 
   return ( 
     <div>   
@@ -31,7 +30,7 @@ function App() {
       <StateContext.Provider value={{store,dispatch}}>
         <BrowserRouter>  
           
-          <div class="allPageContainer"> 
+          <div class="allPageContainer">  
 
             <div class="row p-0 m-0 d-flex justify-content-center"> 
               

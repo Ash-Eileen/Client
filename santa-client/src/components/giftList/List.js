@@ -1,7 +1,8 @@
-import "../../styles/styles.scss"
+import "../../styles/pages/giftCards.scss"
 import {useGlobalState} from '../../config/store'    
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGift } from '@fortawesome/free-solid-svg-icons'  
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'  
+import styled from 'styled-components'
+
 
 
 const List = (props) =>{   
@@ -22,18 +23,44 @@ const deleteGift = (event) =>{
                 type: "setGiftLists", 
                 data: giftLists
             })  
-  }   
+  }  
+
+     const deleteButton = styled.a` 
+ display: inline-block;
+  border-radius: 3px;
+  padding: 0.5rem 0;
+  margin: 0.5rem 1rem;
+  width: 11rem;
+  background: transparent;
+  color: white;
+  border: 2px solid white; 
+  
+  :hover { 
+  background-color:blue;
+    }
+    `;    
+
+    const styledP = styled.p`font-size:20rem`;
 
 
 //   displays gifts in list from global state
-    const showItems = () => {   
+    const showItems = () => {  
 
-        if ( (giftLists[identifer].length > 0 ) ) { 
+        console.log(giftLists.[identifer])  
+
+        if ( (giftLists[identifer].length > 0) ) { 
             return giftLists[identifer].map((v,i)=>{ 
-                return <div key={i} class="gift"> <li>{v}</li> <button index={i} class="deleteGift" onClick={deleteGift}>delete</button></div>
+                return ( 
+                <div key={i} class="gift col d-flex m-0 justify-content-center my-2">  
+                
+                <li>{v}</li>  
+                <button index={i} style={{backgroundColor: `${giftLists[identifer].color}`}} class="deleteGift cardButton" onClick={deleteGift}>delete</button>   
+                <deleteButton>Delete</deleteButton>
+                </div> 
+                )
             })
         }
-    } 
+    }  
 
 
 // adds a gift to the global state
@@ -50,31 +77,66 @@ const deleteGift = (event) =>{
             })    
             
         } 
+    }   
 
+    const meColor = (event) => { 
+
+        giftLists[identifer].color = event.target.value
+
+        dispatch ({ 
+             type: "setGiftLists", 
+            data: giftLists
+
+        })
     } 
 
-
-
+    let cardStyle = "d-flex align-items-center justify-content-center flex-column" + ` ${giftLists[identifer].cardShape}`
     
+ 
+ 
+
     return(   
 
-        <div id={identifer} class="styledBox d-flex align-items-center justify-content-center flex-column">   
+        <div id={identifer} style={{backgroundColor: `${giftLists[identifer].color}`}} class={cardStyle}>   
         <div class="hole"></div>  
-        <form class="d-flex flex-column align-items-center giftForm" onSubmit={addItem}>
+        <form  class="d-flex flex-column align-items-center giftForm" onSubmit={addItem}>
         Name:   
         <input class="nameInput" type="text" id="name" name="name" required />
          
-        {showItems()}
-        List:   
+        <div class="row row-cols-2"> 
+
+        {showItems()}   
+
+        </div>
         
-        <input class="giftInput" type="text" name="addItem"></input>  
+        List:    
+        <styledP>hi</styledP>
+        
+        <input class="giftInput" type="text" name="addItem"></input> 
+
+        <input type="color" list="presetColors" value={giftLists[identifer].color} onChange={meColor}/>  
+        <datalist id="presetColors"> 
+            <option>#ff857a</option>/>
+            <option>#e9ae81</option>
+            <option>#e9e481</option>  
+            <option>#b7e981</option>  
+            <option>#85e981</option> 
+            <option>#81e9c1</option> 
+            <option>#81dee9</option> 
+            <option>#819be9</option>  
+            <option>#9d81e9</option>  
+            <option>#e981e9</option>  
+            <option>#e98193</option> 
+        </datalist>
+
         <input class="giftSubmit" type="submit" name="makeList"  value="Save List"/>
         </form>  
 
         <div class="d-flex align-items-center my-2">  
+
        
         <div class="line"></div>
-        <FontAwesomeIcon className="giftCardIcon" icon={faGift} />   
+        <FontAwesomeIcon className="giftCardIcon" icon={giftLists[identifer].icon} />   
         <div class="line"></div> 
         
         </div>  
