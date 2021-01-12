@@ -18,9 +18,12 @@ import "./styles/partials/cane.scss"
 
 function App() {   
 
-  const initialState = { 
+  // const initialState = { 
+  //   giftLists: {}
+  // } 
+    const initialState = { 
     giftLists: {}
-  }
+  } 
 
   const [store, dispatch] = useReducer(stateReducer,initialState) 
 
@@ -38,7 +41,7 @@ function App() {
               <div class="leftCane"></div> 
               </div>  
 
-              <div class="col-10 p-0 d-flex flex-column justify-content-between ">  
+              <div class="col-10 p-0 d-flex flex-column justify-content-between allPageGrid">  
               <Nav/>   
 
               <div class="d-flex flex-column align-items-center text-center">

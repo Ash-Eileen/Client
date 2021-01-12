@@ -30,10 +30,10 @@ const SignUp = ({history}) =>{
         console.log(userDetails)
         
         registerUser(userDetails) 
-        .then(()=>{ 
+        .then((data)=>{ 
             dispatch({
                 type: "setLoggedInUser",
-                data: userDetails.username
+                data: data._id
             })
             history.push("/")
         }) 
