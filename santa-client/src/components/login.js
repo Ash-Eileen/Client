@@ -13,7 +13,7 @@ const Login = ({history}) =>{
     
     const [errors,setErrors] = useState([])
 
-    const {dispatch} = useGlobalState()  
+    const {dispatch,store} = useGlobalState()  
 
     const detailsChange = (event) =>{ 
         const name = event.target.name
@@ -26,16 +26,17 @@ const Login = ({history}) =>{
 
     const loginSubmit = (event) =>{ 
       event.preventDefault()    
-      
-      console.log(userDetails)
-      
+            
       loginUser(userDetails) 
-      .then(() =>{ 
+      .then((data) =>{  
+        //   console.log(data._id) 
+          console.log(data)
           dispatch({ 
               type: "setLoggedInUser", 
-              data: userDetails.username
-          }) 
-          history.push("/")
+              data: data._id
+          })  
+          console.log(userDetails)
+          history.push("/") 
       }) 
       .catch((error) => {       
           console.log(error)

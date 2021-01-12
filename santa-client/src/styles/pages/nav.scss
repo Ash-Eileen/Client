@@ -1,0 +1,56 @@
+@import "../partials/_fontsColors.scss"; 
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+
+.logo { 
+    font-size:2.5rem; 
+    transform: scale(1.5,1.1);
+} 
+
+.logoText { 
+    font-size: 1rem
+} 
+
+.logDiv { 
+    float:right
+} 
+
+
+ a, a:hover, a:focus, a:active {
+      text-decoration: none;
+      color: inherit;
+ } 
+
+ .navOption { 
+     font-size:1.5rem
+ }  
+
+ .dropDownOption { 
+     color: $background_color
+ } 
+
+ .dropDownMenu { 
+    background-color:$header_color
+ } 
+
+ .activity:hover img {  
+     animation: shake 0.82s cubic-bezier(.66,-0.06,.32,1.14) both
+ }
+
