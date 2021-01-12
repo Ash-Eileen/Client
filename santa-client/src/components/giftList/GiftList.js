@@ -22,7 +22,13 @@ const GiftList = (props) => {
     extractData();
     setListData(listData);
     console.log(giftLists);
-  }, (listData = ""));
+  }, (listData = "")); 
+
+  useEffect(()=>{ 
+    if (!loggedInUser){ 
+      props.history.push("/login")
+    }
+  })
 
   const randomColor = () => {
     const colors = [
@@ -63,33 +69,32 @@ const GiftList = (props) => {
     await getGiftList(loggedInUser)
       .then((data) => {
         listData = [data];
-        console.log(data)
+        console.log(data);
         data.map((v, i) => {
           let tempGifts = [];
           v.gifts.map((v, i) => {
             tempGifts.push(v.gift);
           });
 
-          const reciever = v.receiver;
+          const receiver = v.receiver;
           const user = v.user;
           const _id = v._id;
 
           giftLists[v.uid] = {
-            reciever: reciever,
+            receiver: receiver,
             user: user,
             gifts: tempGifts,
             _id: _id,
             color: randomColor(),
             cardShape: randomBoxStyle(),
             icon: randomIcon(),
-          }; 
-
+          };
         });
 
         dispatch({
           type: "setGiftLists",
           data: giftLists,
-        }); 
+        });
       })
       .catch(console.log);
   };
@@ -98,7 +103,6 @@ const GiftList = (props) => {
 
   const addList = (event) => {
     event.preventDefault();
-    // extractData()
 
     giftLists[randomId] = {};
 
@@ -115,35 +119,21 @@ const GiftList = (props) => {
   };
 
   const deleteList = (event) => {
-    event.preventDefault(); 
-    event.stopPropagation()
-   
-    // console.log( "BEFORE")
-    // console.log(giftLists)
-    console.log(giftLists[event.target.id]) 
-    delete giftLists[event.target.id]; 
+    event.preventDefault();
+    event.stopPropagation();
 
-    // console.log(event.target.id)
-    // console.log(giftLists) 
+    delete giftLists[event.target.id];
 
+    let uid = event.target.id;
 
-    let uid = {
-      uid: event.target.id,
-    }; 
-
-    let currentUserId = { 
-      user: loggedInUser
-    }; 
-
-    deleteGiftList(currentUserId, uid)
+    deleteGiftList(loggedInUser, uid)
       .then(() => {
         dispatch({
           type: "setGiftLists",
           data: giftLists,
         });
       })
-      .catch(console.log); 
-
+      .catch(console.log);
   };
 
   return (

@@ -18,8 +18,8 @@ const getGiftList = async (userId) => {
   return response.data;
 };
 
-const deleteGiftList = async (userId, uid) => {
-  const response = await api.delete(`/giftlist/${userId.user}`, uid);
+const deleteGiftList = async (userId, uid) => { 
+  const response = await api.delete(`/giftlist/${userId}/${uid}`);
   console.log("got user back from server", response);
   return response.data;
 };
