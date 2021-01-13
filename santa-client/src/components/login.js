@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import { useGlobalState } from "../config/store";
-import { loginUser } from "../services/authServices";  
+import { loginUser } from "../services/authServices";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSleigh} from "@fortawesome/free-solid-svg-icons"; 
+import { faSleigh } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import "../styles/pages/loginRegister.scss";
-
-
-
 
 const Login = ({ history }) => {
   const initialFormState = {
@@ -49,20 +46,19 @@ const Login = ({ history }) => {
       });
   };
 
-  return ( 
-
+  return (
     <div>
-    <div class="loginBorder d-flex align-items-center flex-column justify-content-center" >   
+      <div class="loginBorder d-flex align-items-center flex-column justify-content-center">
+        <div class="d-flex flex-column align-items-center">
+          <FontAwesomeIcon className="loginLogo my-4" icon={faSleigh} />
+          <p class="m-0 loginLogoText">North Pole Post</p>
+        </div>
 
-      <div class="d-flex flex-column align-items-center">
-            <FontAwesomeIcon className="loginLogo my-4" icon={faSleigh} />
-            <p class="m-0 loginLogoText">North Pole Post</p>
-          </div>
-
-      {errors.length > 0 ? <h5 class="errors">Invalid Credentials</h5> : ""}
-      <form class="login d-flex flex-column align-items-center" onSubmit={loginSubmit}>
-        
-        
+        {errors.length > 0 ? <h5 class="errors">Invalid Credentials</h5> : ""}
+        <form
+          class="login d-flex flex-column align-items-center"
+          onSubmit={loginSubmit}
+        >
           <label>Username</label>
           <input
             required
@@ -72,9 +68,7 @@ const Login = ({ history }) => {
             placeholder="Enter a username"
             onChange={detailsChange}
           ></input>
-        
-        
-        
+
           <label>Password</label>
           <input
             required
@@ -84,13 +78,20 @@ const Login = ({ history }) => {
             placeholder="Enter a password"
             onChange={detailsChange}
           ></input>
-         
 
-        <input class="christmasInputButton m-2" type="submit" value="Login"></input>
-      </form>  
-
-    </div>  
-    <p class="m-2">Dont have an account? <Link to="/signup"><u>Sign Up</u></Link></p>
+          <input
+            class="christmasInputButton m-2"
+            type="submit"
+            value="Login"
+          ></input>
+        </form>
+      </div>
+      <p class="m-2">
+        Dont have an account?{" "}
+        <Link to="/signup">
+          <u>Sign Up</u>
+        </Link>
+      </p>
     </div>
   );
 };

@@ -7,6 +7,8 @@ import { faSleigh, faCandyCane } from "@fortawesome/free-solid-svg-icons";
 import ChristmasButton from "./ChristmasButton";
 import "../styles/pages/nav.scss";
 
+// ON LOG OUT CLEAR ALL GLOBAL STATE CATEGORIES
+
 const Nav = () => {
   const { store, dispatch } = useGlobalState();
   const { loggedInUser } = store;
