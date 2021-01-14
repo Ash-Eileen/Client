@@ -3,17 +3,19 @@ import AddChildForm from "./AddChildForm";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Popover from 'react-bootstrap/Popover';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Button from 'react-bootstrap/Button';
+import Button from 'react-bootstrap/Button'; 
+import { getChildren } from "../../services/childGiftListServices";
+
 
 const LetterToSantaParent = () => {
   const { store, dispatch } = useGlobalState();
-  const { letterToSanta } = store;
+  const { letterToSanta, loggedInUser } = store;
 
   // makes a form to be filled out with child details
   // cannot make another form if there already is another
   // prompts user to fill out existing form
   const addChildForm = (event) => {
-    event.preventDefault();
+    event.preventDefault(); 
 
     letterToSanta.addForm = true;
 

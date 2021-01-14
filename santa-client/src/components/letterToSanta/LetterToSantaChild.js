@@ -1,6 +1,8 @@
 import { useGlobalState } from "../../config/store";
 import React, { useState } from "react";
 import { loginUser } from "../../services/authServices";
+import { addChildGiftList } from "../../services/childGiftListServices";
+import { v4 as uuidv4 } from "uuid";
 
 const LetterToSantaChild = (props) => {
   const { store, dispatch } = useGlobalState();
@@ -30,6 +32,37 @@ const LetterToSantaChild = (props) => {
 
   const finalizeList = (event) => {
     event.preventDefault();
+
+    console.log(letterToSanta);
+
+    letterToSanta.children.map((v, i) => {
+      if (v.uid === letterToSanta.currentChild) {
+        //   let childFinalList = v.list
+        //   console.log(childFinalList)
+        console.log(v.list);
+
+        let formattedGifts = {
+          uid: uuidv4(),
+          gifts: [],
+        };
+
+        v.list.map((v, i) => {
+          formattedGifts.gifts.push({ gift: v });
+        }); 
+
+        console.log(letterToSanta.currentChild) 
+        console.log(formattedGifts)
+
+
+        addChildGiftList(letterToSanta.currentChild, formattedGifts)   
+        .then()
+        .catch(console.log)
+      }
+    });
+
+    // send the whole list to backend here
+
+    // addChildGiftList(letterToSanta.currentChild, )
     setShowLogin(true);
   };
 
@@ -51,7 +84,7 @@ const LetterToSantaChild = (props) => {
           data: letterToSanta,
         });
       })
-      .catch((error) => {
+      .catch(() => {
         setErrors([1]);
       });
   };

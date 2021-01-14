@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import { BrowserRouter, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import stateReducer from "./config/stateReducer";
 import { StateContext } from "./config/store";
 import Login from "./components/login";
@@ -22,7 +22,8 @@ function App() {
       currentChild: false,
       children: [],
       //  children to be an array of objects
-      // e.g {name:"jimmy", uid:"12312341", list:["xbox", "socks"]}
+      // 1st e.g {name:"jimmy", uid:"12312341", list:["xbox", "socks"]}   
+      // 2st e.g {name:"jimmy", uid:"12312341", listData:{listUid:asdfasf, list:[]} }  
     },
   };
 

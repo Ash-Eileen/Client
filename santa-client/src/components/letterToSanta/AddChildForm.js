@@ -1,37 +1,53 @@
 import { v4 as uuidv4 } from "uuid"; 
-import { useGlobalState } from "../../config/store"; 
+import { useGlobalState } from "../../config/store";  
+import { addChildDB } from "../../services/childGiftListServices";
+
 
 
 
 const AddChildForm = () => {  
 
     const { store, dispatch } = useGlobalState();
-    const { letterToSanta } = store;
+    const { letterToSanta, loggedInUser } = store;
 
     const addChild = (event) =>{ 
         event.preventDefault() 
   
         letterToSanta.addForm = false; 
   
-        console.log(event.target.childAge.value) 
+        console.log(event.target.childAge.value)  
+
+        const childUid = uuidv4()
   
         let child = { 
             name: event.target.childName.value, 
             age: event.target.childAge.value,
-            uid: uuidv4(), 
+            uid: childUid, 
             list:[] 
-
         } 
   
-        letterToSanta.children.push(child)
+        letterToSanta.children.push(child) 
+
+        let childToExpress = {  
+            name: event.target.childName.value, 
+            age: event.target.childAge.value,
+            uid: childUid
+        }  
+
+        console.log(childToExpress)  
+        console.log(loggedInUser)
+
+        addChildDB(loggedInUser, childToExpress) 
+        .then(()=>{  
+          dispatch({
+            type: "setLetterToSanta",
+            data: letterToSanta,
+          });  
+        }) 
+        .catch(console.log)
   
-        dispatch({
-          type: "setLetterToSanta",
-          data: letterToSanta,
-        });  
-  
-        console.log(letterToSanta.children)   
-    } 
+       
+      } 
 
   return (
     <div>
