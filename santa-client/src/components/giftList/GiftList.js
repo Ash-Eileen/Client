@@ -21,7 +21,6 @@ const GiftList = (props) => {
   useEffect(() => {
     extractData();
     setListData(listData);
-    console.log(giftLists);
   }, (listData = "")); 
 
   useEffect(()=>{ 
@@ -69,7 +68,6 @@ const GiftList = (props) => {
     await getGiftList(loggedInUser)
       .then((data) => {
         listData = [data];
-        console.log(data);
         data.map((v, i) => {
           let tempGifts = [];
           v.gifts.map((v, i) => {

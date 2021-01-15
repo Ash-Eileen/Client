@@ -23,7 +23,6 @@ function App() {
       children: [],
       //  children to be an array of objects
       // 1st e.g {name:"jimmy", uid:"12312341", list:["xbox", "socks"]}   
-      // 2st e.g {name:"jimmy", uid:"12312341", listData:{listUid:asdfasf, list:[]} }  
     },
   };
 

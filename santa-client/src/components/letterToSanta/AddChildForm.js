@@ -31,7 +31,7 @@ const AddChildForm = () => {
         let childToExpress = {  
             name: event.target.childName.value, 
             age: event.target.childAge.value,
-            uid: childUid
+            childUid: childUid
         }  
 
         console.log(childToExpress)  
