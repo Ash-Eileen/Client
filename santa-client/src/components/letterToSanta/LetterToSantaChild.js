@@ -37,8 +37,6 @@ const LetterToSantaChild = (props) => {
 
     letterToSanta.children.map((v, i) => {
       if (v.uid === letterToSanta.currentChild) {
-        //   let childFinalList = v.list
-        //   console.log(childFinalList)
         console.log(v.list);
 
         let formattedGifts = {
@@ -48,21 +46,17 @@ const LetterToSantaChild = (props) => {
 
         v.list.map((v, i) => {
           formattedGifts.gifts.push({ gift: v });
-        }); 
+        });
 
-        console.log(letterToSanta.currentChild) 
-        console.log(formattedGifts)
+        console.log(letterToSanta.currentChild);
+        console.log(formattedGifts);
 
-
-        addChildGiftList(letterToSanta.currentChild, formattedGifts)   
-        .then()
-        .catch(console.log)
+        addChildGiftList(letterToSanta.currentChild, formattedGifts)
+          .then()
+          .catch(console.log);
       }
     });
 
-    // send the whole list to backend here
-
-    // addChildGiftList(letterToSanta.currentChild, )
     setShowLogin(true);
   };
 

@@ -9,27 +9,29 @@ import {
   getChildren,
   getChildGiftList,
 } from "../../services/childGiftListServices";
+import { Redirect } from "react-router-dom";
 
 const LetterToSantaParent = (props) => {
   const { store, dispatch } = useGlobalState();
   const { letterToSanta, loggedInUser } = store;
 
-  let [viewed, setViewed] = useState([]); 
-
+  let [viewed, setViewed] = useState([]);
 
   // use effect extracts data from data base and puts it into
   // rteadable gloabl state format
   useEffect(() => {
+    // extracts names and uid
     getChildren(loggedInUser)
       .then((data) => {
-        data.children.map((child, i) => {
+        data.children.map(async (child, i) => {
           let formattedObj = {
             list: [],
             name: child.name,
             uid: child.childUid,
           };
 
-          getChildGiftList(child.childUid).then((listData) => {
+          // extacts list
+          await getChildGiftList(child.childUid).then((listData) => {
             if (listData[0]) {
               listData[0].gifts.map((gift, i) => {
                 if (gift.gift) {
@@ -40,25 +42,17 @@ const LetterToSantaParent = (props) => {
           });
 
           viewed.push(formattedObj);
-          setViewed(viewed); 
-          console.log(viewed)
-          letterToSanta.children = viewed; 
-          
-        });  
+          setViewed(viewed);
+          letterToSanta.children = viewed;
 
+          dispatch({
+            type: "setLetterToSanta",
+            data: letterToSanta,
+          });
+        });
       })
-      .catch(console.log); 
-
-      dispatch({
-        type: "setLetterToSanta",
-        data: letterToSanta,
-      }); 
-
-   
-
-  }, (viewed = []));  
-
-
+      .catch(console.log);
+  }, (viewed = []));
 
   // makes a form to be filled out with child details
   // cannot make another form if there already is another
@@ -74,6 +68,8 @@ const LetterToSantaParent = (props) => {
     });
   };
 
+  // changes the page into child mode and enables child list creation  
+  // for specified child
   const createList = (event) => {
     event.preventDefault();
 
@@ -87,13 +83,10 @@ const LetterToSantaParent = (props) => {
     });
   };
 
-  const viewList = (event) => {
-    event.preventDefault();
-    console.log(event.target.getAttribute("uid"));
-  };
-
   return (
-    <div>
+    <div> 
+      {/* checks if user is logged in */}
+      {!loggedInUser ? <Redirect to="/login" /> : ""}
       <h1>Parent Mode</h1>
 
       <h3>How it works?</h3>
@@ -105,8 +98,8 @@ const LetterToSantaParent = (props) => {
       </p>
 
       <h3>Manage Children</h3>
-      <div class="childrenDiv">
-        {/* switch this to data form db rather than global */}
+      <div class="childrenDiv"> 
+      {/* creates popout elements containing relevent childs list  */}
         {letterToSanta.children.length > 0 ? (
           letterToSanta.children.map((v, i) => {
             // put get child gift list here
@@ -122,25 +115,10 @@ const LetterToSantaParent = (props) => {
               </Popover>
             );
 
-            // getChildren(loggedInUser)
-            // .then((data)=>{
-            //   data.children.map((child,i) =>{
-
-            //     console.log(child.name)
-
-            //     getChildGiftList(child.childUid)
-            //     .then((listData)=>{
-            //      listData[0].gifts.map((gift,i) =>{
-            //       //  console.log(gift.gift)
-            //      })
-            //     })
-            //   })
-            // })
-            // .catch(console.log)
-
             return (
               <div key={i}>
                 <p>{v.name}</p>
+                {console.log(v.list)}
                 {v.list.length > 0 ? (
                   <div>
                     <OverlayTrigger
@@ -148,7 +126,7 @@ const LetterToSantaParent = (props) => {
                       placement="right"
                       overlay={popover}
                     >
-                      <Button uid={v.uid} onClick={viewList} variant="success">
+                      <Button uid={v.uid} variant="success">
                         View List
                       </Button>
                     </OverlayTrigger>

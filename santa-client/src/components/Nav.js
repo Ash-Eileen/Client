@@ -7,18 +7,38 @@ import { faSleigh, faCandyCane } from "@fortawesome/free-solid-svg-icons";
 import ChristmasButton from "./ChristmasButton";
 import "../styles/pages/nav.scss";
 
-// ON LOG OUT CLEAR ALL GLOBAL STATE CATEGORIES
 
 const Nav = () => {
   const { store, dispatch } = useGlobalState();
   const { loggedInUser } = store;
 
-  const logout = (event) => {
+  const logout = (event) => { 
+   
+    const letterToSanta = {
+      parentMode: true,
+      addForm: false,
+      currentChild: false,
+      children: [],   
+    } 
+
+    const giftLists = {}
+
+
     logoutUser(loggedInUser)
       .then(() => {
         dispatch({
           type: "setLoggedInUser",
           data: null,
+        }); 
+
+        dispatch({
+          type: "setGiftLists",
+          data: giftLists,
+        }); 
+
+        dispatch({
+          type: "setLetterToSanta",
+          data: letterToSanta,
         });
       })
       .catch((err) => {
