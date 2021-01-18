@@ -113,7 +113,6 @@ const Nav = () => {
               icon={faCandyCane}
               onClick={logout}
             />  
-            {console.log( "logged in" + localStorage.loggedInUser)}
             </div>
           ) : (
             <div class="log">
@@ -123,7 +122,6 @@ const Nav = () => {
                 to="/login"
                 text="Login"
               /> 
-              {console.log("NOT logged in" + localStorage.loggedInUser)}
             </div>
           )}
         </div>

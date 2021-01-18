@@ -24,4 +24,10 @@
 
 .buttonFont{ 
   font-family:$heading_font
+} 
+
+.secondaryLogin{  
+  display:flex; 
+  justify-content: center;
+  border:1px solid $header_color; 
 }

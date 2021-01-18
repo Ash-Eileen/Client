@@ -137,13 +137,15 @@ const LetterToSantaChild = (props) => {
       <p>before you press this button go get your parent</p>
       {/* implement password and username check */}
       {showLogin ? (
-        <div>
+        <div class="secondaryLogin">
           {errors.length > 0 ? <h5 class="errors">Thats not Right</h5> : ""}
 
           <form
             class="login d-flex flex-column align-items-center"
             onSubmit={loginSubmit}
-          >
+          > 
+
+          <p>Go get your parent and get them to login to confirm your letter to santa!</p>
             <label>Username</label>
             <input
               required

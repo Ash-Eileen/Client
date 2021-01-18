@@ -35,7 +35,9 @@ function App() {
         type: 'setLoggedInUser',
         data: getLoggedInUser(),
     });
-}, [localStorage.loggedInUser])
+}, [localStorage.loggedInUser]) 
+
+
 
   return (
     <div>
