@@ -104,7 +104,7 @@ const Nav = () => {
 
       <div class="col d-flex align-items-center justify-content-center">
         <div class="logDiv">
-          {localStorage.loggedInUser ? (
+          {loggedInUser ? (
             <div>
             <ChristmasButton
               className="log"

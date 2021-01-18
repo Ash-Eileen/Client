@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState } from "react"; 
+import { useGlobalState } from "../config/store";
 import { loginUser, setLoggedInUser } from "../services/authServices";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSleigh } from "@fortawesome/free-solid-svg-icons";
@@ -9,7 +10,9 @@ const Login = ({ history }) => {
   const initialFormState = {
     username: "",
     password: "",
-  };
+  }; 
+
+  const { dispatch } = useGlobalState(); 
 
   const [userDetails, setUserDetails] = useState(initialFormState);
 
@@ -29,7 +32,11 @@ const Login = ({ history }) => {
 
     loginUser(userDetails)
       .then((data) => {
-        setLoggedInUser(data);
+        setLoggedInUser(data); 
+        dispatch({
+          type: 'setLoggedInUser',
+          data: localStorage.LoggedInUser,
+      });
         history.push("/");
       })
       .catch((error) => {
