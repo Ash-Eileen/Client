@@ -1,40 +1,42 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useGlobalState } from "../config/store";
-import { logoutUser } from "../services/authServices";
+import {
+  logoutUser,
+  setLoggedInUser,
+} from "../services/authServices";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSleigh, faCandyCane } from "@fortawesome/free-solid-svg-icons";
 import ChristmasButton from "./ChristmasButton";
 import "../styles/pages/nav.scss";
 
-
 const Nav = () => {
   const { store, dispatch } = useGlobalState();
   const { loggedInUser } = store;
 
-  const logout = (event) => { 
-   
+  const logout = (event) => {
     const letterToSanta = {
       parentMode: true,
       addForm: false,
       currentChild: false,
-      children: [],   
-    } 
+      children: [],
+    };
 
-    const giftLists = {}
-
+    const giftLists = {};
 
     logoutUser(loggedInUser)
       .then(() => {
+        setLoggedInUser();
+
         dispatch({
           type: "setLoggedInUser",
           data: null,
-        }); 
+        });
 
         dispatch({
           type: "setGiftLists",
           data: giftLists,
-        }); 
+        });
 
         dispatch({
           type: "setLetterToSanta",
@@ -44,7 +46,7 @@ const Nav = () => {
       .catch((err) => {
         console.log(err);
       });
-  };
+  }; 
 
   return (
     <div class="row mt-2">
@@ -102,21 +104,27 @@ const Nav = () => {
 
       <div class="col d-flex align-items-center justify-content-center">
         <div class="logDiv">
-          {loggedInUser ? (
+          {localStorage.loggedInUser ? (
+            <div>
             <ChristmasButton
               className="log"
               to="/login"
               text="logout"
               icon={faCandyCane}
               onClick={logout}
-            />
+            />  
+            {console.log( "logged in" + localStorage.loggedInUser)}
+            </div>
           ) : (
-            <ChristmasButton
-              className="log"
-              icon={faCandyCane}
-              to="/login"
-              text="Login"
-            />
+            <div class="log">
+              <ChristmasButton
+                className="log"
+                icon={faCandyCane}
+                to="/login"
+                text="Login"
+              /> 
+              {console.log("NOT logged in" + localStorage.loggedInUser)}
+            </div>
           )}
         </div>
       </div>

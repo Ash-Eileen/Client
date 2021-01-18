@@ -34,7 +34,9 @@ const List = (props) => {
 
   // adds a gift to the global state
   const saveList = (event) => {
-    event.preventDefault();
+    event.preventDefault(); 
+
+    console.log("saved list")
 
     if (giftLists[identifer]) {
       giftLists[identifer].gifts = [event.target.addItem.value];
@@ -47,8 +49,8 @@ const List = (props) => {
         uid: identifer,
       };
 
-      addGiftList(restructuredGiftListSave, loggedInUser)
-        .then(() => {
+      addGiftList(restructuredGiftListSave, localStorage.loggedInUser)
+        .then(() => { 
           dispatch({
             type: "setGiftLists",
             data: giftLists,
@@ -57,22 +59,33 @@ const List = (props) => {
         .catch((err) => {
           console.log(err);
         });
-    }
+    } 
+    event.target.addItem.value = ""
   };
 
   const updateList = (event) => {
-    event.preventDefault();
+    event.preventDefault(); 
+
+    console.log("added item to existing list")
+
 
     if (giftLists[identifer]) {
-      giftLists[identifer].gifts.push(event.target.addItem.value);
+      giftLists[identifer].gifts.push(event.target.addItem.value); 
+
+      let formattedGifts = []
+
+      giftLists[identifer].gifts.map((v,i)=>{ 
+        formattedGifts.push({gift: v})
+      })  
 
       const restructuredGiftListUpdate = {
-        gifts: [{ gift: event.target.addItem.value }],
+        gifts: formattedGifts,
         uid: identifer,
-      };
+      }; 
 
-      updateGiftList(restructuredGiftListUpdate, loggedInUser)
-        .then(() => {
+
+      updateGiftList(restructuredGiftListUpdate, localStorage.loggedInUser)
+        .then(() => { 
           dispatch({
             type: "setGiftLists",
             data: giftLists,
@@ -81,7 +94,10 @@ const List = (props) => {
         .catch((err) => {
           console.log(err);
         });
-    }
+    }  
+    console.log(event.target.addItem.value)
+    event.target.addItem.value = "" 
+    
   };
 
   const meColor = (event) => {
@@ -103,14 +119,12 @@ const List = (props) => {
       style={{ backgroundColor: `${giftLists[identifer].color}` }}
       class={cardStyle}
     >
-      {console.log(giftLists[identifer].receiver)}
-      {console.log(giftLists[identifer])}
-
       <div class="hole"></div>
       <form
         class="d-flex flex-column align-items-center giftForm"
         onSubmit={giftLists[identifer].receiver ? updateList : saveList}
-      >
+      > 
+
         {giftLists[identifer].receiver ? (
           <h3>{giftLists[identifer].receiver}</h3>
         ) : (
@@ -128,7 +142,8 @@ const List = (props) => {
         )}
         <div class="row row-cols-2">
           {giftLists[identifer].gifts &&
-            giftLists[identifer].gifts.map((v, i) => {
+            giftLists[identifer].gifts.map((v, i) => { 
+              console.log(v)
               return (
                 <div
                   key={i}

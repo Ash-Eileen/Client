@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import stateReducer from "./config/stateReducer";
 import { StateContext } from "./config/store";
@@ -11,7 +11,9 @@ import GiftList from "./components/giftList/GiftList";
 import AdventCalender from "./components/AdventCalender";
 import Nav from "./components/Nav";
 import SocialsBar from "./components/SocialsBar";
-import "./styles/partials/cane.scss";
+import "./styles/partials/cane.scss"; 
+import {getLoggedInUser } from "./services/authServices";
+
 
 function App() {
   const initialState = {
@@ -26,7 +28,14 @@ function App() {
     },
   };
 
-  const [store, dispatch] = useReducer(stateReducer, initialState);
+  const [store, dispatch] = useReducer(stateReducer, initialState); 
+
+  useEffect(() => {
+    dispatch({
+        type: 'setLoggedInUser',
+        data: getLoggedInUser(),
+    });
+}, [localStorage.loggedInUser])
 
   return (
     <div>

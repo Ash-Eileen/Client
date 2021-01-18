@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { useGlobalState } from "../config/store";
-import { loginUser } from "../services/authServices";
+import { loginUser, setLoggedInUser } from "../services/authServices";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSleigh } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
@@ -16,8 +15,6 @@ const Login = ({ history }) => {
 
   const [errors, setErrors] = useState([]);
 
-  const { dispatch, store } = useGlobalState();
-
   const detailsChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -32,12 +29,7 @@ const Login = ({ history }) => {
 
     loginUser(userDetails)
       .then((data) => {
-        console.log(data);
-        dispatch({
-          type: "setLoggedInUser",
-          data: data._id,
-        });
-        console.log(userDetails);
+        setLoggedInUser(data);
         history.push("/");
       })
       .catch((error) => {
@@ -53,7 +45,6 @@ const Login = ({ history }) => {
           <FontAwesomeIcon className="loginLogo my-4" icon={faSleigh} />
           <p class="m-0 loginLogoText">North Pole Post</p>
         </div>
-
         {errors.length > 0 ? <h5 class="errors">Invalid Credentials</h5> : ""}
         <form
           class="login d-flex flex-column align-items-center"

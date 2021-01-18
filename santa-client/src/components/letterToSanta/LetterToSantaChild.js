@@ -2,11 +2,9 @@ import { useGlobalState } from "../../config/store";
 import React, { useState } from "react";
 import { loginUser } from "../../services/authServices";
 import { addChildGiftList } from "../../services/childGiftListServices";
-import { v4 as uuidv4 } from "uuid";  
-import "../../styles/pages/letterToSanta.scss" 
+import { v4 as uuidv4 } from "uuid";
+import "../../styles/pages/letterToSanta.scss";
 import ChristmasButton from "../ChristmasButton";
-
-
 
 const LetterToSantaChild = (props) => {
   const { store, dispatch } = useGlobalState();
@@ -37,8 +35,6 @@ const LetterToSantaChild = (props) => {
   const finalizeList = (event) => {
     event.preventDefault();
 
-    console.log(letterToSanta);
-
     letterToSanta.children.map((v, i) => {
       if (v.uid === letterToSanta.currentChild) {
         console.log(v.list);
@@ -51,9 +47,6 @@ const LetterToSantaChild = (props) => {
         v.list.map((v, i) => {
           formattedGifts.gifts.push({ gift: v });
         });
-
-        console.log(letterToSanta.currentChild);
-        console.log(formattedGifts);
 
         addChildGiftList(letterToSanta.currentChild, formattedGifts)
           .then()
@@ -88,24 +81,28 @@ const LetterToSantaChild = (props) => {
   };
 
   return (
-    <div> 
-      <div class="row row-cols-2"> 
-      <div class="col">
-      <img class="santa" src={window.location.origin + "/images/dabbingSanta.png"} alt="santa"/>
-      </div> 
-      <div class="col"> 
-      <h3>My List</h3>
-      <div class="childList">
-        {letterToSanta.children.map((children, i) => {
-          if (children.uid === letterToSanta.currentChild) {
-            return children.list.map((present, i) => {
-              console.log(present);
-              return <li key={i}>{present}</li>;
-            });
-          }
-        })}
-      </div>
-      </div>
+    <div>
+      <div class="row row-cols-2">
+        <div class="col">
+          <img
+            class="santa"
+            src={window.location.origin + "/images/dabbingSanta.png"}
+            alt="santa"
+          />
+        </div>
+        <div class="col">
+          <h3>My List</h3>
+          <div class="childList">
+            {letterToSanta.children.map((children, i) => {
+              if (children.uid === letterToSanta.currentChild) {
+                return children.list.map((present, i) => {
+                  console.log(present);
+                  return <li key={i}>{present}</li>;
+                });
+              }
+            })}
+          </div>
+        </div>
       </div>
       <p class="my-3">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempus urna
@@ -114,7 +111,10 @@ const LetterToSantaChild = (props) => {
         Vivamus tristique cursus lacinia.
       </p>
 
-      <form onSubmit={addPresent} class="d-flex justify-content-center align-items-center flex-column">
+      <form
+        onSubmit={addPresent}
+        class="d-flex justify-content-center align-items-center flex-column"
+      >
         <h3>What can santa get for you?</h3>
         <input
           required
@@ -124,16 +124,16 @@ const LetterToSantaChild = (props) => {
         ></input>
 
         <input
-          class="christmasInputButton m-2"
+          class="christmasInputButton buttonFont m-2"
           type="submit"
           value="Add Present"
         ></input>
       </form>
 
-     
-
       {/* <button onClick={finalizeList}>All Done</button>  */}
-      <ChristmasButton text="All Done" onClick={finalizeList}/>
+      <div class="d-flex justify-content-center align-items-center my-3">
+        <ChristmasButton text="All Done" onClick={finalizeList} />
+      </div>
       <p>before you press this button go get your parent</p>
       {/* implement password and username check */}
       {showLogin ? (

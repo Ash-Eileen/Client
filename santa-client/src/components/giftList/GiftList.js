@@ -14,7 +14,7 @@ import { deleteGiftList, getGiftList } from "../../services/giftListServices";
 
 const GiftList = (props) => {
   const { store, dispatch } = useGlobalState();
-  const { giftLists, loggedInUser } = store;
+  const { giftLists } = store;
 
   let [listData, setListData] = useState("");
 
@@ -24,7 +24,7 @@ const GiftList = (props) => {
   }, (listData = "")); 
 
   useEffect(()=>{ 
-    if (!loggedInUser){ 
+    if (!localStorage.loggedInUser){ 
       props.history.push("/login")
     }
   })
@@ -65,7 +65,7 @@ const GiftList = (props) => {
   };
 
   const extractData = async () => {
-    await getGiftList(loggedInUser)
+    await getGiftList(localStorage.loggedInUser)
       .then((data) => {
         listData = [data];
         data.map((v, i) => {
@@ -124,7 +124,7 @@ const GiftList = (props) => {
 
     let uid = event.target.id;
 
-    deleteGiftList(loggedInUser, uid)
+    deleteGiftList(localStorage.loggedInUser, uid)
       .then(() => {
         dispatch({
           type: "setGiftLists",
@@ -148,7 +148,7 @@ const GiftList = (props) => {
         {Object.keys(giftLists).length > 0 &&
           Object.keys(giftLists).map((v, i) => {
             return (
-              <div>
+              <div key={i}>
                 <div class="col my-3 d-flex flex-column align-items-center">
                   <List identifer={v} />
                   <div class="my-3" onClick={deleteList}>

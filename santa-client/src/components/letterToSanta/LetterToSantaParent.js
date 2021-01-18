@@ -21,7 +21,7 @@ const LetterToSantaParent = (props) => {
   // rteadable gloabl state format
   useEffect(() => {
     // extracts names and uid
-    getChildren(loggedInUser)
+    getChildren(localStorage.loggedInUser)
       .then((data) => {
         data.children.map(async (child, i) => {
           let formattedObj = {
@@ -86,7 +86,7 @@ const LetterToSantaParent = (props) => {
   return (
     <div> 
       {/* checks if user is logged in */}
-      {!loggedInUser ? <Redirect to="/login" /> : ""}
+      {!localStorage.loggedInUser ? <Redirect to="/login" /> : ""}
       <h1 class="my-5"><u>Parent Mode</u></h1>
       
       <div class="row">
