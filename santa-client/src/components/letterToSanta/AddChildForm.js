@@ -1,6 +1,8 @@
 import { v4 as uuidv4 } from "uuid"; 
 import { useGlobalState } from "../../config/store";  
-import { addChildDB } from "../../services/childGiftListServices";
+import { addChildDB } from "../../services/childGiftListServices"; 
+import "../../styles/pages/letterToSanta.scss"
+
 
 
 
@@ -51,7 +53,7 @@ const AddChildForm = () => {
 
   return (
     <div>
-      <form onSubmit={addChild}>
+      <form onSubmit={addChild} class="d-flex flex-column justify-content-center align-items-center">
         <label>Name</label>
         <input required type="text" name="childName" placeholder="Name"></input>
 

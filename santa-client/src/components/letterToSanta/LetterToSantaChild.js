@@ -2,7 +2,11 @@ import { useGlobalState } from "../../config/store";
 import React, { useState } from "react";
 import { loginUser } from "../../services/authServices";
 import { addChildGiftList } from "../../services/childGiftListServices";
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";  
+import "../../styles/pages/letterToSanta.scss" 
+import ChristmasButton from "../ChristmasButton";
+
+
 
 const LetterToSantaChild = (props) => {
   const { store, dispatch } = useGlobalState();
@@ -84,16 +88,33 @@ const LetterToSantaChild = (props) => {
   };
 
   return (
-    <div>
-      <h3>Santa Here</h3>
-      <p>
+    <div> 
+      <div class="row row-cols-2"> 
+      <div class="col">
+      <img class="santa" src={window.location.origin + "/images/dabbingSanta.png"} alt="santa"/>
+      </div> 
+      <div class="col"> 
+      <h3>My List</h3>
+      <div class="childList">
+        {letterToSanta.children.map((children, i) => {
+          if (children.uid === letterToSanta.currentChild) {
+            return children.list.map((present, i) => {
+              console.log(present);
+              return <li key={i}>{present}</li>;
+            });
+          }
+        })}
+      </div>
+      </div>
+      </div>
+      <p class="my-3">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempus urna
         magna, a luctus arcu dignissim at. Sed et lacus in urna auctor egestas.
         Mauris mollis mauris ut augue tempor iaculis. Curabitur vitae erat urna.
         Vivamus tristique cursus lacinia.
       </p>
 
-      <form onSubmit={addPresent}>
+      <form onSubmit={addPresent} class="d-flex justify-content-center align-items-center flex-column">
         <h3>What can santa get for you?</h3>
         <input
           required
@@ -109,19 +130,10 @@ const LetterToSantaChild = (props) => {
         ></input>
       </form>
 
-      <h3>My List</h3>
-      <div class="childList">
-        {letterToSanta.children.map((children, i) => {
-          if (children.uid === letterToSanta.currentChild) {
-            return children.list.map((present, i) => {
-              console.log(present);
-              return <li key={i}>{present}</li>;
-            });
-          }
-        })}
-      </div>
+     
 
-      <button onClick={finalizeList}>All Done</button>
+      {/* <button onClick={finalizeList}>All Done</button>  */}
+      <ChristmasButton text="All Done" onClick={finalizeList}/>
       <p>before you press this button go get your parent</p>
       {/* implement password and username check */}
       {showLogin ? (
