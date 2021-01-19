@@ -1,13 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Karla&display=swap'); 
+@import url("https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Karla&display=swap");
 
-* { 
-    margin:0; 
-    padding:0;
+$heading_font: "Berkshire Swash", cursive;
+$body_font: "Karla", cursive;
+
+$header_color: #fbf3f3;
+$background_color: #b60d0f;
+$body_color: white;
+
+* {
+  margin: 0;
+  padding: 0;
 }
 
-$heading_font: 'Berkshire Swash', cursive; 
-$body_font: 'Karla', cursive;  
+p {
+  font-family: $body_font;
+}
 
-$header_color: #FBF3F3;
-$background_color: #b60d0f; 
-$body_color: white;
+input {
+  font-family: "Karla", cursive;
+}

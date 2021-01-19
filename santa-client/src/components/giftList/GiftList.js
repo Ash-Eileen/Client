@@ -14,15 +14,53 @@ import { deleteGiftList, getGiftList } from "../../services/giftListServices";
 
 const GiftList = (props) => {
   const { store, dispatch } = useGlobalState();
-  const { giftLists, loggedInUser } = store;
+  const { giftLists } = store;
 
   let [listData, setListData] = useState("");
+
+  const extractData = async () => {
+    await getGiftList(localStorage.loggedInUser)
+      .then((data) => {
+        listData = [data];
+        data.map((v, i) => {
+          let tempGifts = [];
+          v.gifts.map((v, i) => {
+            tempGifts.push(v.gift);
+          });
+
+          const receiver = v.receiver;
+          const user = v.user;
+          const _id = v._id;
+
+          giftLists[v.uid] = {
+            receiver: receiver,
+            user: user,
+            gifts: tempGifts,
+            _id: _id,
+            color: randomColor(),
+            cardShape: randomBoxStyle(),
+            icon: randomIcon(),
+          };
+        });
+
+        dispatch({
+          type: "setGiftLists",
+          data: giftLists,
+        });
+      })
+      .catch(console.log);
+  };
 
   useEffect(() => {
     extractData();
     setListData(listData);
-    console.log(giftLists);
-  }, (listData = ""));
+  }, [extractData, listData]);
+
+  useEffect(() => {
+    if (!localStorage.loggedInUser) {
+      props.history.push("/login");
+    }
+  });
 
   const randomColor = () => {
     const colors = [
@@ -59,46 +97,10 @@ const GiftList = (props) => {
     return boxStyles[randomNumber];
   };
 
-  const extractData = async () => {
-    await getGiftList(loggedInUser)
-      .then((data) => {
-        listData = [data];
-        console.log(data)
-        data.map((v, i) => {
-          let tempGifts = [];
-          v.gifts.map((v, i) => {
-            tempGifts.push(v.gift);
-          });
-
-          const reciever = v.receiver;
-          const user = v.user;
-          const _id = v._id;
-
-          giftLists[v.uid] = {
-            reciever: reciever,
-            user: user,
-            gifts: tempGifts,
-            _id: _id,
-            color: randomColor(),
-            cardShape: randomBoxStyle(),
-            icon: randomIcon(),
-          }; 
-
-        });
-
-        dispatch({
-          type: "setGiftLists",
-          data: giftLists,
-        }); 
-      })
-      .catch(console.log);
-  };
-
   let randomId = uuidv4();
 
   const addList = (event) => {
     event.preventDefault();
-    // extractData()
 
     giftLists[randomId] = {};
 
@@ -115,55 +117,41 @@ const GiftList = (props) => {
   };
 
   const deleteList = (event) => {
-    event.preventDefault(); 
-    event.stopPropagation()
-   
-    // console.log( "BEFORE")
-    // console.log(giftLists)
-    console.log(giftLists[event.target.id]) 
-    delete giftLists[event.target.id]; 
+    event.preventDefault();
+    event.stopPropagation();
 
-    // console.log(event.target.id)
-    // console.log(giftLists) 
+    delete giftLists[event.target.id];
 
+    let uid = event.target.id;
 
-    let uid = {
-      uid: event.target.id,
-    }; 
-
-    let currentUserId = { 
-      user: loggedInUser
-    }; 
-
-    deleteGiftList(currentUserId, uid)
+    deleteGiftList(localStorage.loggedInUser, uid)
       .then(() => {
         dispatch({
           type: "setGiftLists",
           data: giftLists,
         });
       })
-      .catch(console.log); 
-
+      .catch(console.log);
   };
 
   return (
     <div>
-      <div class="headerButton">
-        <h1 class="giftListHeader">Gift List</h1>
+      <div className="headerButton">
+        <h1 className="giftListHeader">Gift List</h1>
 
-        <div class="d-flex m-3">
+        <div className="d-flex m-3">
           <ChristmasButton onClick={addList} text="Add Gift List" />
         </div>
       </div>
 
-      <div class="row row-cols-3 d-flex justify-content-around">
+      <div className="row row-cols-3 d-flex justify-content-around">
         {Object.keys(giftLists).length > 0 &&
           Object.keys(giftLists).map((v, i) => {
             return (
-              <div>
-                <div class="col my-3 d-flex flex-column align-items-center">
+              <div key={i}>
+                <div className="col my-3 d-flex flex-column align-items-center">
                   <List identifer={v} />
-                  <div class="my-3" onClick={deleteList}>
+                  <div className="my-3" onClick={deleteList}>
                     <ChristmasButton
                       id={v}
                       text="Delete List"

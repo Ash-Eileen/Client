@@ -1,0 +1,33 @@
+@import "../partials/_fontsColors.scss";
+
+.christmasButtonLetter {
+  display: flex;
+  align-items: center;
+  background-color: $background_color;
+  border: 1px $header_color solid;
+  font-size: 1.5rem;
+  transition: 0.9s;
+  color: $header_color; 
+  padding: 0 0.8rem
+}
+
+.christmasButtonLetter:hover {
+  background-color: $header_color;
+  color: $background_color;
+  border-radius: 0.2rem;
+} 
+
+.santa{ 
+  max-width: 40rem; 
+  max-height: 40rem; 
+} 
+
+.buttonFont{ 
+  font-family:$heading_font
+} 
+
+.secondaryLogin{  
+  display:flex; 
+  justify-content: center;
+  border:1px solid $header_color; 
+}

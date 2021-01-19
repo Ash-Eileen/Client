@@ -1,71 +1,101 @@
-import React, {useState} from 'react'
-import {useGlobalState} from '../config/store' 
-import {loginUser} from "../services/authServices"
+import React, { useState } from "react";
+import { useGlobalState } from "../config/store";
+import { loginUser, setLoggedInUser } from "../services/authServices";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSleigh } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+import "../styles/pages/loginRegister.scss";
 
-const Login = ({history}) =>{  
-    
-    const initialFormState = {
-        username: "",
-        password: ""
-    }
+const Login = ({ history }) => {
+  const initialFormState = {
+    username: "",
+    password: "",
+  };
 
-    const [userDetails,setUserDetails] = useState(initialFormState) 
-    
-    const [errors,setErrors] = useState([])
+  const { dispatch } = useGlobalState();
 
-    const {dispatch,store} = useGlobalState()  
+  const [userDetails, setUserDetails] = useState(initialFormState);
 
-    const detailsChange = (event) =>{ 
-        const name = event.target.name
-        const value = event.target.value
-        setUserDetails({
-            ...userDetails,
-            [name]: value
-        })
-    }
+  const [errors, setErrors] = useState([]);
 
-    const loginSubmit = (event) =>{ 
-      event.preventDefault()    
-            
-      loginUser(userDetails) 
-      .then((data) =>{  
-        //   console.log(data._id) 
-          console.log(data)
-          dispatch({ 
-              type: "setLoggedInUser", 
-              data: data._id
-          })  
-          console.log(userDetails)
-          history.push("/") 
-      }) 
-      .catch((error) => {       
-          console.log(error)
-          setErrors([1])  
-    })	
-    }
+  const detailsChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setUserDetails({
+      ...userDetails,
+      [name]: value,
+    });
+  };
 
-    return( 
-        <div> 
-            <h1>Login</h1> 
+  const loginSubmit = (event) => {
+    event.preventDefault();
 
-     
-<h5 class="errors">{errors.length > 0 ? "Invalid Credentials" : ""}</h5>
-            <form class="login" onSubmit={loginSubmit}>
-            <div>
-                <label>Username</label>
-                <input required class="username" type="text" name="username" placeholder="Enter a username" onChange={detailsChange}></input>
-            </div>
-            <div>
-                <label>Password</label>
-                <input required class="password" type="password" name="password" placeholder="Enter a password" onChange={detailsChange}></input>
-            </div>
-            <input type="submit" value="Login"></input>
-            
-        </form>
+    loginUser(userDetails)
+      .then((data) => {
+        setLoggedInUser(data);
+        dispatch({
+          type: "setLoggedInUser",
+          data: localStorage.LoggedInUser,
+        });
+        history.push("/");
+      })
+      .catch((error) => {
+        console.log(error);
+        setErrors([1]);
+      });
+  };
+
+  return (
+    <div>
+      <div className="loginBorder d-flex align-items-center flex-column justify-content-center">
+        <div className="d-flex flex-column align-items-center">
+          <FontAwesomeIcon className="loginLogo my-4" icon={faSleigh} />
+          <p className="m-0 loginLogoText">North Pole Post</p>
         </div>
-    )
-}
+        {errors.length > 0 ? (
+          <h5 className="errors">Invalid Credentials</h5>
+        ) : (
+          ""
+        )}
+        <form
+          className="login d-flex flex-column align-items-center"
+          onSubmit={loginSubmit}
+        >
+          <label>Username</label>
+          <input
+            required
+            className="username mb-2"
+            type="text"
+            name="username"
+            placeholder="Enter a username"
+            onChange={detailsChange}
+          ></input>
 
+          <label>Password</label>
+          <input
+            required
+            className="password mb-2"
+            type="password"
+            name="password"
+            placeholder="Enter a password"
+            onChange={detailsChange}
+          ></input>
 
+          <input
+            className="christmasInputButton m-2"
+            type="submit"
+            value="Login"
+          ></input>
+        </form>
+      </div>
+      <p className="m-2">
+        Dont have an account?{" "}
+        <Link to="/signup">
+          <u>Sign Up</u>
+        </Link>
+      </p>
+    </div>
+  );
+};
 
-export default Login
+export default Login;
