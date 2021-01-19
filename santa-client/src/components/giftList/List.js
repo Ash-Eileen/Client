@@ -7,7 +7,7 @@ import { addGiftList, updateGiftList } from "../../services/giftListServices";
 
 const List = (props) => {
   const { store, dispatch } = useGlobalState();
-  const { giftLists, loggedInUser } = store;
+  const { giftLists } = store;
   const { identifer } = props;
 
   //   deletes a selected gift and updates global state
@@ -34,9 +34,7 @@ const List = (props) => {
 
   // adds a gift to the global state
   const saveList = (event) => {
-    event.preventDefault(); 
-
-    console.log("saved list")
+    event.preventDefault();
 
     if (giftLists[identifer]) {
       giftLists[identifer].gifts = [event.target.addItem.value];
@@ -50,7 +48,7 @@ const List = (props) => {
       };
 
       addGiftList(restructuredGiftListSave, localStorage.loggedInUser)
-        .then(() => { 
+        .then(() => {
           dispatch({
             type: "setGiftLists",
             data: giftLists,
@@ -59,33 +57,29 @@ const List = (props) => {
         .catch((err) => {
           console.log(err);
         });
-    } 
-    event.target.addItem.value = ""
+    }
+    event.target.addItem.value = "";
   };
 
   const updateList = (event) => {
-    event.preventDefault(); 
-
-    console.log("added item to existing list")
-
+    event.preventDefault();
 
     if (giftLists[identifer]) {
-      giftLists[identifer].gifts.push(event.target.addItem.value); 
+      giftLists[identifer].gifts.push(event.target.addItem.value);
 
-      let formattedGifts = []
+      let formattedGifts = [];
 
-      giftLists[identifer].gifts.map((v,i)=>{ 
-        formattedGifts.push({gift: v})
-      })  
+      giftLists[identifer].gifts.map((v, i) => {
+        return formattedGifts.push({ gift: v });
+      });
 
       const restructuredGiftListUpdate = {
         gifts: formattedGifts,
         uid: identifer,
-      }; 
-
+      };
 
       updateGiftList(restructuredGiftListUpdate, localStorage.loggedInUser)
-        .then(() => { 
+        .then(() => {
           dispatch({
             type: "setGiftLists",
             data: giftLists,
@@ -94,10 +88,8 @@ const List = (props) => {
         .catch((err) => {
           console.log(err);
         });
-    }  
-    console.log(event.target.addItem.value)
-    event.target.addItem.value = "" 
-    
+    }
+    event.target.addItem.value = "";
   };
 
   const meColor = (event) => {
@@ -117,21 +109,20 @@ const List = (props) => {
     <div
       id={identifer}
       style={{ backgroundColor: `${giftLists[identifer].color}` }}
-      class={cardStyle}
+      className={cardStyle}
     >
-      <div class="hole"></div>
+      <div className="hole"></div>
       <form
-        class="d-flex flex-column align-items-center giftForm"
+        className="d-flex flex-column align-items-center giftForm"
         onSubmit={giftLists[identifer].receiver ? updateList : saveList}
-      > 
-
+      >
         {giftLists[identifer].receiver ? (
           <h3>{giftLists[identifer].receiver}</h3>
         ) : (
           <div>
             <h3>Name</h3>
             <input
-              class="nameInput"
+              className="nameInput"
               type="text"
               id="name"
               name="name"
@@ -140,19 +131,17 @@ const List = (props) => {
             />
           </div>
         )}
-        <div class="row row-cols-2">
+        <div className="row row-cols-2">
           {giftLists[identifer].gifts &&
-            giftLists[identifer].gifts.map((v, i) => { 
-              console.log(v)
+            giftLists[identifer].gifts.map((v, i) => {
               return (
                 <div
                   key={i}
-                  class="gift col d-flex justify-content-center my-2"
+                  className="gift col d-flex justify-content-center my-2"
                 >
-                  <h4></h4>
-                  <p class="m-1">{v}</p>
+                  <p className="m-1">{v}</p>
                   <ColoredButton
-                    class={"deleteGift" + "cardButton"}
+                    className="deleteGift cardButton"
                     index={i}
                     onClick={deleteGift}
                   >
@@ -163,7 +152,12 @@ const List = (props) => {
             })}
         </div>
         List:
-        <input class="giftInput" type="text" name="addItem" required></input>
+        <input
+          className="giftInput"
+          type="text"
+          name="addItem"
+          required
+        ></input>
         <input
           type="color"
           list="presetColors"
@@ -184,20 +178,20 @@ const List = (props) => {
           <option>#e98193</option>
         </datalist>
         <input
-          class="giftSubmit"
+          className="giftSubmit"
           type="submit"
           name="makeList"
           value={giftLists[identifer].receiver ? "Add Gift" : "Save List"}
         />
       </form>
 
-      <div class="d-flex align-items-center my-2">
-        <div class="line"></div>
+      <div className="d-flex align-items-center my-2">
+        <div className="line"></div>
         <FontAwesomeIcon
           className="giftCardIcon"
           icon={giftLists[identifer].icon}
         />
-        <div class="line"></div>
+        <div className="line"></div>
       </div>
     </div>
   );

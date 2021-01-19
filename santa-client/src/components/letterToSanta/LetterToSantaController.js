@@ -7,14 +7,25 @@ const LetterToSantaController = () => {
   const { store, dispatch } = useGlobalState();
   const { letterToSanta } = store;
 
+  // useEffect(() => {
+  //   letterToSanta.addForm = false;
+
+  //   dispatch({
+  //     type: "setLetterToSanta",
+  //     data: letterToSanta,
+  //   }); 
+
+  // }, letterToSanta.parentMode === false); 
+
   useEffect(() => {
     letterToSanta.addForm = false;
 
     dispatch({
       type: "setLetterToSanta",
       data: letterToSanta,
-    });
-  }, letterToSanta.parentMode === false);
+    }); 
+    
+  }, [dispatch,letterToSanta]);
 
   return (
     <div>

@@ -11,14 +11,14 @@ const ChristmasButton = (props) => {
         <div
           id={props.id}
           onClick={props.onClick}
-          class="christmasButton py-1 px-3"
+          className="christmasButton py-1 px-3"
         >
           {props.text}{" "}
           <FontAwesomeIcon className="candyCane" icon={props.icon} />
         </div>
       ) : (
         <Link to={props.to}>
-          <div class="christmasButton py-1 px-3">
+          <div className="christmasButton py-1 px-3">
             <p> {props.text}</p>{" "}
             <FontAwesomeIcon className="candyCane" icon={props.icon} />
           </div>

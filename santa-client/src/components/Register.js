@@ -1,11 +1,10 @@
 import { registerUser } from "../services/authServices";
 import { useGlobalState } from "../config/store";
-import React, { useState } from "react";  
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSleigh} from "@fortawesome/free-solid-svg-icons";  
+import { faSleigh } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import "../styles/pages/loginRegister.scss";
-
 
 const SignUp = ({ history }) => {
   const initialFormState = {
@@ -44,19 +43,21 @@ const SignUp = ({ history }) => {
       });
   };
 
-  return ( 
+  return (
     <div>
-    <div class="loginBorder d-flex align-items-center flex-column justify-content-center">
-      <div class="d-flex flex-column align-items-center">
-            <FontAwesomeIcon className="loginLogo my-4" icon={faSleigh} />
-            <p class="m-0 loginLogoText">North Pole Post</p>
-          </div>
+      <div className="loginBorder d-flex align-items-center flex-column justify-content-center">
+        <div className="d-flex flex-column align-items-center">
+          <FontAwesomeIcon className="loginLogo my-4" icon={faSleigh} />
+          <p className="m-0 loginLogoText">North Pole Post</p>
+        </div>
 
-      <form class="signup login d-flex flex-column align-items-center" onSubmit={signUpSubmit}>
-  
+        <form
+          className="signup login d-flex flex-column align-items-center"
+          onSubmit={signUpSubmit}
+        >
           <label>Username</label>
           <input
-            class="username mb-2"
+            className="username mb-2"
             required
             type="text"
             name="username"
@@ -66,7 +67,7 @@ const SignUp = ({ history }) => {
 
           <label>Email</label>
           <input
-            class="email mb-2"
+            className="email mb-2"
             required
             type="Email"
             name="email"
@@ -76,18 +77,26 @@ const SignUp = ({ history }) => {
 
           <label>Password</label>
           <input
-            class="password mb-2"
+            className="password mb-2"
             required
             type="password"
             name="password"
             placeholder="Enter a password"
             onChange={detailsChange}
           ></input>
-        <input class="christmasInputButton m-2" type="submit" value="Sign Up"></input>
-      </form>
-    </div> 
-    <p class="m-2">Dont have an account? <Link to="/login"><u>Login</u></Link></p>
- 
+          <input
+            className="christmasInputButton m-2"
+            type="submit"
+            value="Sign Up"
+          ></input>
+        </form>
+      </div>
+      <p className="m-2">
+        Dont have an account?{" "}
+        <Link to="/login">
+          <u>Login</u>
+        </Link>
+      </p>
     </div>
   );
 };

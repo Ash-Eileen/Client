@@ -10,14 +10,14 @@ import "../styles/pages/socials.scss";
 const SocialsBar = () => {
   return (
     <div>
-      <div class="d-flex justify-content-center align-items-center flex-column">
+      <div className="d-flex justify-content-center align-items-center flex-column">
         <div>
           <FontAwesomeIcon className="social" icon={faFacebookSquare} />
           <FontAwesomeIcon className="social" icon={faInstagramSquare} />
           <FontAwesomeIcon className="social" icon={faGithubSquare} />
         </div>
 
-        <p class="mb-1">Created by Santas Helpers Ash & Jordon</p>
+        <p className="mb-1">Created by Santas Helpers Ash & Jordon</p>
       </div>
     </div>
   );

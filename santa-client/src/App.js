@@ -11,9 +11,8 @@ import GiftList from "./components/giftList/GiftList";
 import AdventCalender from "./components/AdventCalender";
 import Nav from "./components/Nav";
 import SocialsBar from "./components/SocialsBar";
-import "./styles/partials/cane.scss"; 
-import {getLoggedInUser } from "./services/authServices";
-
+import "./styles/partials/cane.scss";
+import { getLoggedInUser } from "./services/authServices";
 
 function App() {
   const initialState = {
@@ -24,35 +23,33 @@ function App() {
       currentChild: false,
       children: [],
       //  children to be an array of objects
-      // 1st e.g {name:"jimmy", uid:"12312341", list:["xbox", "socks"]}   
+      // 1st e.g {name:"jimmy", uid:"12312341", list:["xbox", "socks"]}
     },
   };
 
-  const [store, dispatch] = useReducer(stateReducer, initialState); 
+  const [store, dispatch] = useReducer(stateReducer, initialState);
 
   useEffect(() => {
     dispatch({
-        type: 'setLoggedInUser',
-        data: getLoggedInUser(),
+      type: "setLoggedInUser",
+      data: getLoggedInUser(),
     });
-}, [localStorage.loggedInUser]) 
-
-
+  }, []);
 
   return (
     <div>
       <StateContext.Provider value={{ store, dispatch }}>
         <BrowserRouter>
-          <div class="allPageContainer">
-            <div class="row p-0 m-0 d-flex justify-content-center">
-              <div class="col-1 p-0">
-                <div class="leftCane"></div>
+          <div className="allPageContainer">
+            <div className="row p-0 m-0 d-flex justify-content-center">
+              <div className="col-1 p-0">
+                <div className="leftCane"></div>
               </div>
 
-              <div class="col-10 p-0 d-flex flex-column justify-content-between allPageGrid">
+              <div className="col-10 p-0 d-flex flex-column justify-content-between allPageGrid">
                 <Nav />
 
-                <div class="d-flex flex-column align-items-center text-center">
+                <div className="d-flex flex-column align-items-center text-center">
                   <Route exact path="/login" component={Login} />
                   <Route exact path="/signup" component={SignUp} />
                   <Route exact path="/about-us" component={AboutUs} />
@@ -72,8 +69,8 @@ function App() {
                 <SocialsBar />
               </div>
 
-              <div class="col-1 p-0">
-                <div class="rightCane"></div>
+              <div className="col-1 p-0">
+                <div className="rightCane"></div>
               </div>
             </div>
           </div>

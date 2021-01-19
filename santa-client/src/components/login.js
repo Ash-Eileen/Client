@@ -1,4 +1,4 @@
-import React, { useState } from "react"; 
+import React, { useState } from "react";
 import { useGlobalState } from "../config/store";
 import { loginUser, setLoggedInUser } from "../services/authServices";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,9 +10,9 @@ const Login = ({ history }) => {
   const initialFormState = {
     username: "",
     password: "",
-  }; 
+  };
 
-  const { dispatch } = useGlobalState(); 
+  const { dispatch } = useGlobalState();
 
   const [userDetails, setUserDetails] = useState(initialFormState);
 
@@ -32,11 +32,11 @@ const Login = ({ history }) => {
 
     loginUser(userDetails)
       .then((data) => {
-        setLoggedInUser(data); 
+        setLoggedInUser(data);
         dispatch({
-          type: 'setLoggedInUser',
+          type: "setLoggedInUser",
           data: localStorage.LoggedInUser,
-      });
+        });
         history.push("/");
       })
       .catch((error) => {
@@ -47,20 +47,24 @@ const Login = ({ history }) => {
 
   return (
     <div>
-      <div class="loginBorder d-flex align-items-center flex-column justify-content-center">
-        <div class="d-flex flex-column align-items-center">
+      <div className="loginBorder d-flex align-items-center flex-column justify-content-center">
+        <div className="d-flex flex-column align-items-center">
           <FontAwesomeIcon className="loginLogo my-4" icon={faSleigh} />
-          <p class="m-0 loginLogoText">North Pole Post</p>
+          <p className="m-0 loginLogoText">North Pole Post</p>
         </div>
-        {errors.length > 0 ? <h5 class="errors">Invalid Credentials</h5> : ""}
+        {errors.length > 0 ? (
+          <h5 className="errors">Invalid Credentials</h5>
+        ) : (
+          ""
+        )}
         <form
-          class="login d-flex flex-column align-items-center"
+          className="login d-flex flex-column align-items-center"
           onSubmit={loginSubmit}
         >
           <label>Username</label>
           <input
             required
-            class="username mb-2"
+            className="username mb-2"
             type="text"
             name="username"
             placeholder="Enter a username"
@@ -70,7 +74,7 @@ const Login = ({ history }) => {
           <label>Password</label>
           <input
             required
-            class="password mb-2"
+            className="password mb-2"
             type="password"
             name="password"
             placeholder="Enter a password"
@@ -78,13 +82,13 @@ const Login = ({ history }) => {
           ></input>
 
           <input
-            class="christmasInputButton m-2"
+            className="christmasInputButton m-2"
             type="submit"
             value="Login"
           ></input>
         </form>
       </div>
-      <p class="m-2">
+      <p className="m-2">
         Dont have an account?{" "}
         <Link to="/signup">
           <u>Sign Up</u>

@@ -1,59 +1,43 @@
-//   import {loginUser} from "../services/authServices" 
-//   import {registerUser} from "../services/authServices" 
-  
-   it('Login fail', () => {
-    
-    cy.visit("http://localhost:3000/login")
-    cy.get('.username')  
-      .type('loginFail').should('have.value', 'loginFail')   
-     
-      cy.get('.password')  
-      .type('loginFail').should('have.value', 'loginFail')    
+//   import {loginUser} from "../services/authServices"
+//   import {registerUser} from "../services/authServices"
 
-      cy.get('.login').submit()  
+it("Login fail", () => {
+  cy.visit("http://localhost:3000/login");
+  cy.get(".username").type("loginFail").should("have.value", "loginFail");
 
-      cy.get('.errors') 
-      .contains("Invalid Credentials")
-  }) 
+  cy.get(".password").type("loginFail").should("have.value", "loginFail");
 
-    it('Login success', () => { 
-    
-    cy.visit("http://localhost:3000/signup")  
+  cy.get(".login").submit();
 
-    cy.get('.username')  
-      .type('fake').should('have.value', 'fake')   
+  cy.get(".errors").contains("Invalid Credentials");
+});
 
-       cy.get('.email')  
-      .type('fake@fake').should('have.value', 'fake@fake')  
+it("Login success", () => {
+  cy.visit("http://localhost:3000/signup");
 
-       cy.get('.password')  
-      .type('fake').should('have.value', 'fake')  
+  cy.get(".username").type("fake").should("have.value", "fake");
 
-      cy.get('.signup').submit()   
+  cy.get(".email").type("fake@fake").should("have.value", "fake@fake");
 
-      cy.visit("http://localhost:3000/login") 
+  cy.get(".password").type("fake").should("have.value", "fake");
 
-    cy.get('.username')  
-      .type('fake').should('have.value', 'fake')   
-     
-      cy.get('.password')  
-      .type('fake').should('have.value', 'fake')    
+  cy.get(".signup").submit();
 
-      cy.get('.login').submit()   
+  cy.visit("http://localhost:3000/login");
 
-      cy.get('.log') 
-      .should('have.text', "Logout")    
-  })
+  cy.get(".username").type("fake").should("have.value", "fake");
 
+  cy.get(".password").type("fake").should("have.value", "fake");
 
-    //   to test 
+  cy.get(".login").submit();
 
-    // login 
-    // -can type in both fields?  
-    // - submittable
-    // - user gets redirected to home on completion  
-    // - its says logout
- 
+  cy.get(".log").should("have.text", "Logout");
+});
 
+//   to test
 
-
+// login
+// -can type in both fields?
+// - submittable
+// - user gets redirected to home on completion
+// - its says logout

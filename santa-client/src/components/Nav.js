@@ -1,10 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useGlobalState } from "../config/store";
-import {
-  logoutUser,
-  setLoggedInUser,
-} from "../services/authServices";
+import { logoutUser, setLoggedInUser } from "../services/authServices";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSleigh, faCandyCane } from "@fortawesome/free-solid-svg-icons";
 import ChristmasButton from "./ChristmasButton";
@@ -14,7 +11,8 @@ const Nav = () => {
   const { store, dispatch } = useGlobalState();
   const { loggedInUser } = store;
 
-  const logout = (event) => {
+  // logs out user, clears global state back to initial and local storage
+  const logout = () => {
     const letterToSanta = {
       parentMode: true,
       addForm: false,
@@ -46,27 +44,27 @@ const Nav = () => {
       .catch((err) => {
         console.log(err);
       });
-  }; 
+  };
 
   return (
-    <div class="row mt-2">
-      <div class="col">
+    <div className="row mt-2">
+      <div className="col">
         <Link to="/">
-          <div class="d-flex flex-column align-items-center">
+          <div className="d-flex flex-column align-items-center">
             <FontAwesomeIcon className="logo" icon={faSleigh} />
-            <p class="m-0 logoText">North Pole Post</p>
+            <p className="m-0 logoText">North Pole Post</p>
           </div>
         </Link>
       </div>
-      <div class="col d-flex align-items-center justify-content-center">
+      <div className="col d-flex align-items-center justify-content-center">
         <Link className="navOption" to="/about-us">
           About Us
         </Link>
 
-        <div class="nav-item dropdown">
+        <div className="nav-item dropdown">
           <a
-            class="nav-link dropdown-toggle navOption"
-            href="#"
+            className="nav-link dropdown-toggle navOption"
+            href="/#"
             id="navbarDropdown"
             role="button"
             data-toggle="dropdown"
@@ -77,7 +75,7 @@ const Nav = () => {
           </a>
 
           <div
-            class="dropdown-menu navOption dropDownMenu"
+            className="dropdown-menu navOption dropDownMenu"
             aria-labelledby="navbarDropdown"
           >
             <Link className="dropdown-item dropDownOption" to="/gift-list">
@@ -102,26 +100,26 @@ const Nav = () => {
         </div>
       </div>
 
-      <div class="col d-flex align-items-center justify-content-center">
-        <div class="logDiv">
+      <div className="col d-flex align-items-center justify-content-center">
+        <div className="logDiv">
           {loggedInUser ? (
             <div>
-            <ChristmasButton
-              className="log"
-              to="/login"
-              text="logout"
-              icon={faCandyCane}
-              onClick={logout}
-            />  
+              <ChristmasButton
+                className="log"
+                to="/login"
+                text="logout"
+                icon={faCandyCane}
+                onClick={logout}
+              />
             </div>
           ) : (
-            <div class="log">
+            <div className="log">
               <ChristmasButton
                 className="log"
                 icon={faCandyCane}
                 to="/login"
                 text="Login"
-              /> 
+              />
             </div>
           )}
         </div>

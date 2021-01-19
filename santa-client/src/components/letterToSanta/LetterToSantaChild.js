@@ -22,8 +22,6 @@ const LetterToSantaChild = (props) => {
       }
     });
 
-    console.log(letterToSanta.children);
-
     event.target.present.value = "";
 
     dispatch({
@@ -37,15 +35,13 @@ const LetterToSantaChild = (props) => {
 
     letterToSanta.children.map((v, i) => {
       if (v.uid === letterToSanta.currentChild) {
-        console.log(v.list);
-
         let formattedGifts = {
           uid: uuidv4(),
           gifts: [],
         };
 
         v.list.map((v, i) => {
-          formattedGifts.gifts.push({ gift: v });
+          return formattedGifts.gifts.push({ gift: v });
         });
 
         addChildGiftList(letterToSanta.currentChild, formattedGifts)
@@ -65,8 +61,6 @@ const LetterToSantaChild = (props) => {
       password: event.target.password.value,
     };
 
-    console.log(userDetails);
-
     loginUser(userDetails)
       .then(() => {
         letterToSanta.parentMode = true;
@@ -82,21 +76,20 @@ const LetterToSantaChild = (props) => {
 
   return (
     <div>
-      <div class="row row-cols-2">
-        <div class="col">
+      <div className="row row-cols-2">
+        <div className="col">
           <img
-            class="santa"
+            className="santa"
             src={window.location.origin + "/images/dabbingSanta.png"}
             alt="santa"
           />
         </div>
-        <div class="col">
+        <div className="col">
           <h3>My List</h3>
-          <div class="childList">
+          <div className="childList">
             {letterToSanta.children.map((children, i) => {
               if (children.uid === letterToSanta.currentChild) {
                 return children.list.map((present, i) => {
-                  console.log(present);
                   return <li key={i}>{present}</li>;
                 });
               }
@@ -104,7 +97,7 @@ const LetterToSantaChild = (props) => {
           </div>
         </div>
       </div>
-      <p class="my-3">
+      <p className="my-3">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempus urna
         magna, a luctus arcu dignissim at. Sed et lacus in urna auctor egestas.
         Mauris mollis mauris ut augue tempor iaculis. Curabitur vitae erat urna.
@@ -113,7 +106,7 @@ const LetterToSantaChild = (props) => {
 
       <form
         onSubmit={addPresent}
-        class="d-flex justify-content-center align-items-center flex-column"
+        className="d-flex justify-content-center align-items-center flex-column"
       >
         <h3>What can santa get for you?</h3>
         <input
@@ -124,32 +117,34 @@ const LetterToSantaChild = (props) => {
         ></input>
 
         <input
-          class="christmasInputButton buttonFont m-2"
+          className="christmasInputButton buttonFont m-2"
           type="submit"
           value="Add Present"
         ></input>
       </form>
 
       {/* <button onClick={finalizeList}>All Done</button>  */}
-      <div class="d-flex justify-content-center align-items-center my-3">
+      <div className="d-flex justify-content-center align-items-center my-3">
         <ChristmasButton text="All Done" onClick={finalizeList} />
       </div>
       <p>before you press this button go get your parent</p>
       {/* implement password and username check */}
       {showLogin ? (
-        <div class="secondaryLogin">
-          {errors.length > 0 ? <h5 class="errors">Thats not Right</h5> : ""}
+        <div className="secondaryLogin">
+          {errors.length > 0 ? <h5 className="errors">Thats not Right</h5> : ""}
 
           <form
-            class="login d-flex flex-column align-items-center"
+            className="login d-flex flex-column align-items-center"
             onSubmit={loginSubmit}
-          > 
-
-          <p>Go get your parent and get them to login to confirm your letter to santa!</p>
+          >
+            <p>
+              Go get your parent and get them to login to confirm your letter to
+              santa!
+            </p>
             <label>Username</label>
             <input
               required
-              class="username mb-2"
+              className="username mb-2"
               type="text"
               name="username"
               placeholder="Enter a username"
@@ -158,14 +153,14 @@ const LetterToSantaChild = (props) => {
             <label>Password</label>
             <input
               required
-              class="password mb-2"
+              className="password mb-2"
               type="password"
               name="password"
               placeholder="Enter a password"
             ></input>
 
             <input
-              class="christmasInputButton m-2"
+              className="christmasInputButton m-2"
               type="submit"
               value="Login"
             ></input>

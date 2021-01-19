@@ -18,16 +18,49 @@ const GiftList = (props) => {
 
   let [listData, setListData] = useState("");
 
+  const extractData = async () => {
+    await getGiftList(localStorage.loggedInUser)
+      .then((data) => {
+        listData = [data];
+        data.map((v, i) => {
+          let tempGifts = [];
+          v.gifts.map((v, i) => {
+            tempGifts.push(v.gift);
+          });
+
+          const receiver = v.receiver;
+          const user = v.user;
+          const _id = v._id;
+
+          giftLists[v.uid] = {
+            receiver: receiver,
+            user: user,
+            gifts: tempGifts,
+            _id: _id,
+            color: randomColor(),
+            cardShape: randomBoxStyle(),
+            icon: randomIcon(),
+          };
+        });
+
+        dispatch({
+          type: "setGiftLists",
+          data: giftLists,
+        });
+      })
+      .catch(console.log);
+  };
+
   useEffect(() => {
     extractData();
     setListData(listData);
-  }, (listData = "")); 
+  }, [extractData, listData]);
 
-  useEffect(()=>{ 
-    if (!localStorage.loggedInUser){ 
-      props.history.push("/login")
+  useEffect(() => {
+    if (!localStorage.loggedInUser) {
+      props.history.push("/login");
     }
-  })
+  });
 
   const randomColor = () => {
     const colors = [
@@ -62,39 +95,6 @@ const GiftList = (props) => {
     const randomNumber = Math.floor(Math.random() * boxStyles.length);
 
     return boxStyles[randomNumber];
-  };
-
-  const extractData = async () => {
-    await getGiftList(localStorage.loggedInUser)
-      .then((data) => {
-        listData = [data];
-        data.map((v, i) => {
-          let tempGifts = [];
-          v.gifts.map((v, i) => {
-            tempGifts.push(v.gift);
-          });
-
-          const receiver = v.receiver;
-          const user = v.user;
-          const _id = v._id;
-
-          giftLists[v.uid] = {
-            receiver: receiver,
-            user: user,
-            gifts: tempGifts,
-            _id: _id,
-            color: randomColor(),
-            cardShape: randomBoxStyle(),
-            icon: randomIcon(),
-          };
-        });
-
-        dispatch({
-          type: "setGiftLists",
-          data: giftLists,
-        });
-      })
-      .catch(console.log);
   };
 
   let randomId = uuidv4();
@@ -136,22 +136,22 @@ const GiftList = (props) => {
 
   return (
     <div>
-      <div class="headerButton">
-        <h1 class="giftListHeader">Gift List</h1>
+      <div className="headerButton">
+        <h1 className="giftListHeader">Gift List</h1>
 
-        <div class="d-flex m-3">
+        <div className="d-flex m-3">
           <ChristmasButton onClick={addList} text="Add Gift List" />
         </div>
       </div>
 
-      <div class="row row-cols-3 d-flex justify-content-around">
+      <div className="row row-cols-3 d-flex justify-content-around">
         {Object.keys(giftLists).length > 0 &&
           Object.keys(giftLists).map((v, i) => {
             return (
               <div key={i}>
-                <div class="col my-3 d-flex flex-column align-items-center">
+                <div className="col my-3 d-flex flex-column align-items-center">
                   <List identifer={v} />
-                  <div class="my-3" onClick={deleteList}>
+                  <div className="my-3" onClick={deleteList}>
                     <ChristmasButton
                       id={v}
                       text="Delete List"
