@@ -18,6 +18,17 @@ const GiftList = (props) => {
 
   let [listData, setListData] = useState("");
 
+  useEffect(() => {
+    extractData();
+    setListData(listData);
+  }, []);
+
+  useEffect(() => {
+    if (!localStorage.loggedInUser) {
+      props.history.push("/login");
+    }
+  });
+
   const extractData = async () => {
     await getGiftList(localStorage.loggedInUser)
       .then((data) => {
@@ -50,17 +61,6 @@ const GiftList = (props) => {
       })
       .catch(console.log);
   };
-
-  useEffect(() => {
-    extractData();
-    setListData(listData);
-  }, [extractData, listData]);
-
-  useEffect(() => {
-    if (!localStorage.loggedInUser) {
-      props.history.push("/login");
-    }
-  });
 
   const randomColor = () => {
     const colors = [
